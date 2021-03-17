@@ -2,6 +2,7 @@ import 'dart:async';
 import 'homepage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:page_transition/page_transition.dart';
 
 class SplashScreen extends StatefulWidget {
   SplashScreen({Key key}) : super(key: key);
@@ -16,7 +17,15 @@ class _SplashScreenState extends State<SplashScreen> {
     Timer(
         Duration(seconds: 3),
         () => Navigator.push(
-            context, MaterialPageRoute(builder: (context) => MyHomePage())));
+              context,
+              PageTransition(
+                  type: PageTransitionType.rightToLeftWithFade,
+                  child: MyHomePage(),
+                  inheritTheme: true,
+                  duration: Duration(milliseconds: 1000),
+                  reverseDuration: Duration(milliseconds: 1000),
+                  ctx: context),
+            ));
   }
 
   @override

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'otp.dart';
+import 'package:page_transition/page_transition.dart';
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -88,6 +89,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               child: Text("+62 "),
                             )),
                         controller: _controller,
+                        keyboardType: TextInputType.number,
                       ),
                     ),
                     SizedBox(
@@ -103,9 +105,15 @@ class _LoginScreenState extends State<LoginScreen> {
                           borderRadius: BorderRadius.all(Radius.circular(15))),
                       child: InkWell(
                         onTap: () {
-                          Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) =>
-                                  OTPScreen(_controller.text)));
+                          Navigator.of(context).push(
+                            PageTransition(
+                                type: PageTransitionType.rightToLeftWithFade,
+                                child: OTPScreen(_controller.text),
+                                inheritTheme: true,
+                                duration: Duration(milliseconds: 1000),
+                                reverseDuration: Duration(milliseconds: 1000),
+                                ctx: context),
+                          );
                         },
                         child: Center(
                           child: Text(

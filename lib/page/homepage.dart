@@ -1,4 +1,5 @@
 import 'package:caffe_both_twenty/page/login.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:flutter/material.dart';
 
 class MyHomePage extends StatefulWidget {
@@ -76,6 +77,14 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void _login() {
     Navigator.push(
-        context, MaterialPageRoute(builder: (context) => LoginScreen()));
+      context,
+      PageTransition(
+          type: PageTransitionType.rightToLeftWithFade,
+          child: LoginScreen(),
+          inheritTheme: true,
+          duration: Duration(milliseconds: 1000),
+          reverseDuration: Duration(milliseconds: 1000),
+          ctx: context),
+    );
   }
 }

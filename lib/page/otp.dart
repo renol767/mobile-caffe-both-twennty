@@ -17,10 +17,10 @@ class _OTPScreenState extends State<OTPScreen> {
   final TextEditingController _pinPutController = TextEditingController();
   final FocusNode _pinPutFocusNode = FocusNode();
   final BoxDecoration pinPutDecoration = BoxDecoration(
-    color: const Color.fromRGBO(43, 46, 66, 1),
+    color: const Color.fromRGBO(223, 223, 223, 1),
     borderRadius: BorderRadius.circular(10.0),
     border: Border.all(
-      color: const Color.fromRGBO(126, 203, 224, 1),
+      color: const Color.fromRGBO(210, 210, 210, 1),
     ),
   );
   @override
@@ -28,6 +28,7 @@ class _OTPScreenState extends State<OTPScreen> {
     return Scaffold(
       key: _scaffoldkey,
       appBar: AppBar(
+        backgroundColor: Colors.blueAccent,
         title: Text('OTP Verification'),
       ),
       body: Column(
@@ -45,7 +46,7 @@ class _OTPScreenState extends State<OTPScreen> {
             padding: const EdgeInsets.all(30.0),
             child: PinPut(
               fieldsCount: 6,
-              textStyle: const TextStyle(fontSize: 25.0, color: Colors.white),
+              textStyle: const TextStyle(fontSize: 25.0, color: Colors.black87),
               eachFieldWidth: 40.0,
               eachFieldHeight: 55.0,
               focusNode: _pinPutFocusNode,
