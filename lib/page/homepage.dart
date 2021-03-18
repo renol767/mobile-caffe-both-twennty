@@ -31,17 +31,9 @@ class _MyHomePageState extends State<MyHomePage> {
               height: 50,
             ),
             Container(
-              padding: EdgeInsets.all(30),
-              child: Image.network(
-                'https://i.pinimg.com/originals/22/29/ab/2229ab619400f9e376604b98249a8eda.jpg',
-                height: 200,
-                width: 300,
-                errorBuilder: (BuildContext context, Object exception,
-                    StackTrace stackTrace) {
-                  return Text('Your error widget...');
-                },
-              ),
-            ),
+                padding: EdgeInsets.all(30),
+                child: Image.asset('images/homescreen.png',
+                    height: 300, width: 300)),
             SizedBox(
               height: 150,
             ),

@@ -35,16 +35,11 @@ class _LoginScreenState extends State<LoginScreen> {
       body: Column(
         children: <Widget>[
           Container(
-            child: Image.network(
-              'https://i.pinimg.com/originals/22/29/ab/2229ab619400f9e376604b98249a8eda.jpg',
-              height: 200,
-              width: 300,
-              errorBuilder: (BuildContext context, Object exception,
-                  StackTrace stackTrace) {
-                return Text('Your error widget...');
-              },
-            ),
-          ),
+              child: Image.asset(
+            'images/login.png',
+            height: 250,
+            width: 250,
+          )),
           Flexible(
             child: Container(
               decoration: BoxDecoration(
