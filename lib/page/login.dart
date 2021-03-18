@@ -1,3 +1,4 @@
+import 'package:caffe_both_twenty/page/homepage.dart';
 import 'package:flutter/material.dart';
 import 'otp.dart';
 import 'package:page_transition/page_transition.dart';
@@ -12,66 +13,74 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset: false,
-      appBar: AppBar(
-        brightness: Brightness.light,
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        leading: Container(
-          margin: EdgeInsets.all(5),
-          width: 50,
-          height: 50,
-          child: IconButton(
-            onPressed: () {
-              Navigator.pop(context);
-            },
-            icon: Icon(
-              Icons.arrow_back,
-              color: Colors.black,
+        resizeToAvoidBottomInset: false,
+        appBar: AppBar(
+          brightness: Brightness.light,
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          leading: Container(
+            margin: EdgeInsets.all(5),
+            width: 50,
+            height: 50,
+            child: IconButton(
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => MyHomePage()));
+              },
+              icon: Icon(
+                Icons.arrow_back,
+                color: Colors.black,
+              ),
             ),
           ),
         ),
-      ),
-      body: Column(
-        children: <Widget>[
-          Container(
-              child: Image.asset(
-            'images/login.png',
-            height: 250,
-            width: 250,
-          )),
-          Flexible(
+        backgroundColor: Colors.white,
+        body: SingleChildScrollView(
+          child: Center(
             child: Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.all(Radius.circular(40)),
-                color: Colors.grey.withOpacity(0.3),
-              ),
-              child: Container(
-                padding: EdgeInsets.only(left: 20, right: 20, top: 20),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Container(
-                      padding: EdgeInsets.only(left: 20),
-                      child: Text(
-                        'Enter Number Phone',
+              margin: EdgeInsets.all(16.0),
+              padding: EdgeInsets.only(left: 16, right: 16),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Text(
+                        "Welcome",
                         style: TextStyle(
-                          color: Colors.black.withOpacity(0.7),
-                          fontSize: 15,
-                        ),
+                            fontSize: 26, fontWeight: FontWeight.bold),
                       ),
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    Container(
-                      padding:
-                          EdgeInsets.symmetric(vertical: 2, horizontal: 20),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.all(Radius.circular(20)),
-                        color: Colors.grey.withOpacity(0.2),
+                      SizedBox(
+                        height: 6,
                       ),
-                      child: TextField(
+                      Text(
+                        "Sign in to continue!",
+                        style: TextStyle(
+                            fontSize: 20, color: Colors.grey.shade400),
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                    height: 40.0,
+                  ),
+                  Center(
+                      child: Image.asset(
+                    'images/login.png',
+                    height: 250,
+                    width: 250,
+                  )),
+                  SizedBox(
+                    height: 45.0,
+                  ),
+                  Column(
+                    children: <Widget>[
+                      Padding(
+                        padding:
+                            EdgeInsets.symmetric(vertical: 2, horizontal: 20),
+                      ),
+                      TextField(
                         style: TextStyle(
                             fontSize: 17,
                             fontWeight: FontWeight.w600,
@@ -79,6 +88,17 @@ class _LoginScreenState extends State<LoginScreen> {
                         decoration: InputDecoration(
                             hintText: "Enter Number Phone",
                             border: InputBorder.none,
+                            enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10),
+                              borderSide: BorderSide(
+                                color: Colors.grey.shade300,
+                              ),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(15),
+                                borderSide: BorderSide(
+                                  color: Colors.purple.shade300,
+                                )),
                             prefix: Padding(
                               padding: EdgeInsets.all(4),
                               child: Text("+62 "),
@@ -86,57 +106,60 @@ class _LoginScreenState extends State<LoginScreen> {
                         controller: _controller,
                         keyboardType: TextInputType.number,
                       ),
-                    ),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    Container(
-                      height: 50,
-                      decoration: BoxDecoration(
-                          gradient: LinearGradient(
-                            colors: [Color(0xffff38f1), Color(0xffba00ff)],
-                            stops: [0, 1],
-                          ),
-                          borderRadius: BorderRadius.all(Radius.circular(15))),
-                      child: InkWell(
-                        onTap: () {
-                          Navigator.of(context).push(
-                            PageTransition(
+                      SizedBox(
+                        height: 30,
+                      ),
+                      Container(
+                        height: 50,
+                        width: double.infinity,
+                        child: FlatButton(
+                          onPressed: () {
+                            Navigator.of(context).push(PageTransition(
                                 type: PageTransitionType.rightToLeftWithFade,
                                 child: OTPScreen(_controller.text),
                                 inheritTheme: true,
                                 duration: Duration(milliseconds: 1000),
                                 reverseDuration: Duration(milliseconds: 1000),
-                                ctx: context),
-                          );
-                        },
-                        child: Center(
-                          child: Text(
-                            "Next",
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.w600,
-                                fontSize: 15),
+                                ctx: context));
+                          },
+                          padding: EdgeInsets.all(0),
+                          child: Ink(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(15),
+                              gradient: LinearGradient(
+                                begin: Alignment.centerLeft,
+                                end: Alignment.centerRight,
+                                colors: [Color(0xffff38f1), Color(0xffba00ff)],
+                                stops: [0, 1],
+                              ),
+                            ),
+                            child: Container(
+                              alignment: Alignment.center,
+                              constraints: BoxConstraints(
+                                  maxWidth: double.infinity, minHeight: 50),
+                              child: Text(
+                                "Login",
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold),
+                                textAlign: TextAlign.center,
+                              ),
+                            ),
+                          ),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(6),
                           ),
                         ),
                       ),
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                  ],
-                ),
+                      SizedBox(
+                        height: 250,
+                      )
+                    ],
+                  ),
+                ],
               ),
             ),
           ),
-        ],
-      ),
-    );
+        ));
   }
 }

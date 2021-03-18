@@ -11,12 +11,14 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
+      resizeToAvoidBottomInset: false,
+      body: SingleChildScrollView(
+        padding: EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             SizedBox(
-              height: 50,
+              height: 120,
             ),
             Center(
               child: Text(
@@ -35,7 +37,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 child: Image.asset('images/homescreen.png',
                     height: 300, width: 300)),
             SizedBox(
-              height: 150,
+              height: 100,
             ),
             Container(
               height: 50,

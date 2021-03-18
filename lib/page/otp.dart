@@ -1,3 +1,4 @@
+import 'package:caffe_both_twenty/page/info_login.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -64,11 +65,11 @@ class _OTPScreenState extends State<OTPScreen> {
                     if (value.user != null) {
                       Navigator.pushAndRemoveUntil(
                           context,
-                          MaterialPageRoute(builder: (context) => Home()),
+                          MaterialPageRoute(builder: (context) => InfoUser()),
                           (route) => false);
                     }
                   });
-                } on PlatformException catch (e) {
+                } catch (e) {
                   FocusScope.of(context).unfocus();
                   _scaffoldkey.currentState
                       .showSnackBar(SnackBar(content: Text('invalid OTP')));
@@ -91,7 +92,7 @@ class _OTPScreenState extends State<OTPScreen> {
             if (value.user != null) {
               Navigator.pushAndRemoveUntil(
                   context,
-                  MaterialPageRoute(builder: (context) => Home()),
+                  MaterialPageRoute(builder: (context) => InfoUser()),
                   (route) => false);
             }
           });
