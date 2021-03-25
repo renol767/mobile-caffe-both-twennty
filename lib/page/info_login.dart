@@ -1,6 +1,10 @@
+import 'dart:convert';
+import 'package:http/http.dart' as http;
+import 'package:caffe_both_twenty/page/home.dart';
 import 'package:caffe_both_twenty/page/login.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import '../models/usermodel.dart';
 
 class InfoUser extends StatefulWidget {
   @override
@@ -8,9 +12,48 @@ class InfoUser extends StatefulWidget {
 }
 
 class _InfoUserState extends State<InfoUser> {
+  Future<UserModel> createUser(
+      String uid,
+      String firstname,
+      String lastname,
+      String email,
+      String address,
+      String numberphone,
+      String numberwhatsapp) async {
+    final String apiURL =
+        "https://0ba28d60f15343b797e43f64a5a4258a.000webhostapp.com/api/user";
+    final response = await http.post(apiURL, body: {
+      "uid": uid,
+      "first_name": firstname,
+      "last_name": lastname,
+      "email": email,
+      "address": address,
+      "numberphone": numberphone,
+      "numberwhatsapp": numberwhatsapp
+    });
+
+    if (response.statusCode == 200) {
+      var responseString = json.decode(response.body);
+
+      return UserModel.fromJson(responseString);
+    } else {
+      return null;
+    }
+  }
+
+  TextEditingController _uidController = new TextEditingController();
+  TextEditingController _firstnameController = new TextEditingController();
+  TextEditingController _lastnameController = new TextEditingController();
+  TextEditingController _emailController = new TextEditingController();
+  TextEditingController _addressController = new TextEditingController();
+  TextEditingController _numberphoneController = new TextEditingController();
+  TextEditingController _numberwhatsappController = new TextEditingController();
   String uid, numberphone;
+  // UserDetail user = null;
   @override
   Widget build(BuildContext context) {
+    _uidController.text = uid;
+    String _user;
     return Scaffold(
         resizeToAvoidBottomInset: false,
         appBar: AppBar(
@@ -65,21 +108,21 @@ class _InfoUserState extends State<InfoUser> {
                     height: 30.0,
                   ),
                   TextFormField(
-                    initialValue: uid,
+                    controller: _uidController,
                     decoration: InputDecoration(
                       enabled: false,
                       labelText: uid,
                       labelStyle: TextStyle(
                           fontSize: 14,
-                          color: Colors.grey.shade400,
+                          color: Colors.white,
                           fontWeight: FontWeight.w600),
                       enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(color: Colors.grey.shade300),
+                        borderSide: BorderSide(color: Colors.white),
                       ),
                       focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(color: Colors.purple.shade300),
+                        borderSide: BorderSide(color: Colors.white),
                       ),
                       floatingLabelBehavior: FloatingLabelBehavior.auto,
                     ),
@@ -90,8 +133,78 @@ class _InfoUserState extends State<InfoUser> {
                   Column(
                     children: <Widget>[
                       TextField(
+                        controller: _firstnameController,
                         decoration: InputDecoration(
-                          labelText: "Full Name",
+                          labelText: "First Name",
+                          labelStyle: TextStyle(
+                              fontSize: 14,
+                              color: Colors.grey.shade400,
+                              fontWeight: FontWeight.w600),
+                          enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10),
+                            borderSide: BorderSide(color: Colors.grey.shade300),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10),
+                            borderSide:
+                                BorderSide(color: Colors.purple.shade300),
+                          ),
+                          floatingLabelBehavior: FloatingLabelBehavior.auto,
+                        ),
+                      ),
+                      SizedBox(
+                        height: 16,
+                      ),
+                      TextField(
+                        controller: _lastnameController,
+                        decoration: InputDecoration(
+                          labelText: "Last Name",
+                          labelStyle: TextStyle(
+                              fontSize: 14,
+                              color: Colors.grey.shade400,
+                              fontWeight: FontWeight.w600),
+                          enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10),
+                            borderSide: BorderSide(color: Colors.grey.shade300),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10),
+                            borderSide:
+                                BorderSide(color: Colors.purple.shade300),
+                          ),
+                          floatingLabelBehavior: FloatingLabelBehavior.auto,
+                        ),
+                      ),
+                      SizedBox(
+                        height: 16,
+                      ),
+                      TextField(
+                        controller: _emailController,
+                        decoration: InputDecoration(
+                          labelText: "Email",
+                          labelStyle: TextStyle(
+                              fontSize: 14,
+                              color: Colors.grey.shade400,
+                              fontWeight: FontWeight.w600),
+                          enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10),
+                            borderSide: BorderSide(color: Colors.grey.shade300),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10),
+                            borderSide:
+                                BorderSide(color: Colors.purple.shade300),
+                          ),
+                          floatingLabelBehavior: FloatingLabelBehavior.auto,
+                        ),
+                      ),
+                      SizedBox(
+                        height: 16,
+                      ),
+                      TextField(
+                        controller: _addressController,
+                        decoration: InputDecoration(
+                          labelText: "Address",
                           labelStyle: TextStyle(
                               fontSize: 14,
                               color: Colors.grey.shade400,
@@ -112,7 +225,7 @@ class _InfoUserState extends State<InfoUser> {
                         height: 16,
                       ),
                       TextFormField(
-                        initialValue: numberphone,
+                        controller: _numberphoneController,
                         decoration: InputDecoration(
                           labelText: "Phone Number",
                           labelStyle: TextStyle(
@@ -134,8 +247,8 @@ class _InfoUserState extends State<InfoUser> {
                         height: 16,
                       ),
                       TextField(
+                        controller: _numberwhatsappController,
                         decoration: InputDecoration(
-                          prefixText: "+62",
                           labelText: "Whatsapp Number",
                           labelStyle: TextStyle(
                               fontSize: 14,
@@ -159,7 +272,20 @@ class _InfoUserState extends State<InfoUser> {
                       Container(
                         height: 50,
                         child: FlatButton(
-                          onPressed: () {},
+                          onPressed: () async {
+                            final UserModel user = await createUser(
+                                _uidController.text,
+                                _firstnameController.text,
+                                _lastnameController.text,
+                                _emailController.text,
+                                _addressController.text,
+                                _numberphoneController.text,
+                                _numberwhatsappController.text);
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => Home()));
+                          },
                           padding: EdgeInsets.all(0),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(6),
