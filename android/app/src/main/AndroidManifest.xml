@@ -1,8 +1,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.caffe_both_twenty">
+    package="com.caffe_both_twenty">
     <uses-permission android:name="android.permission.INTERNET" /> <!-- This Line -->
    <application
-        android:label="caffe_both_twenty"
+        android:label="Caffe Both Twenty"
         android:usesCleartextTraffic="true"
         android:icon="@mipmap/ic_launcher">
         <activity

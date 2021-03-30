@@ -1,4 +1,4 @@
-package com.example.caffe_both_twenty
+package com.caffe_both_twenty
 
 import io.flutter.embedding.android.FlutterActivity
 

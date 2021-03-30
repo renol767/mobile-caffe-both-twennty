@@ -35,16 +35,12 @@ class _SplashScreenState extends State<SplashScreen> {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
-          Image.network(
-            'https://i.pinimg.com/originals/22/29/ab/2229ab619400f9e376604b98249a8eda.jpg',
+          Image.asset(
+            'images/Logo.png',
             height: 200,
             width: 300,
-            errorBuilder: (BuildContext context, Object exception,
-                StackTrace stackTrace) {
-              return Text('Your error widget...');
-            },
           ),
-          SizedBox(height: 30.0),
+          SizedBox(height: 80.0),
           SpinKitFadingCube(color: Colors.lightBlueAccent)
         ],
       ),

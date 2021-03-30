@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:caffe_both_twenty/models/user.dart';
 import 'package:http/http.dart' as http;
 import 'package:caffe_both_twenty/page/home.dart';
 import 'package:caffe_both_twenty/page/login.dart';
@@ -107,26 +108,12 @@ class _InfoUserState extends State<InfoUser> {
                   SizedBox(
                     height: 30.0,
                   ),
-                  TextFormField(
-                    controller: _uidController,
-                    decoration: InputDecoration(
-                      enabled: false,
-                      labelText: uid,
-                      labelStyle: TextStyle(
-                          fontSize: 14,
-                          color: Colors.white,
-                          fontWeight: FontWeight.w600),
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(color: Colors.white),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(color: Colors.white),
-                      ),
-                      floatingLabelBehavior: FloatingLabelBehavior.auto,
-                    ),
-                  ),
+                  Visibility(
+                      visible: false,
+                      child: TextField(
+                        controller: _uidController,
+                        enabled: false,
+                      )),
                   SizedBox(
                     height: 16,
                   ),
@@ -226,6 +213,7 @@ class _InfoUserState extends State<InfoUser> {
                       ),
                       TextFormField(
                         controller: _numberphoneController,
+                        keyboardType: TextInputType.number,
                         decoration: InputDecoration(
                           labelText: "Phone Number",
                           labelStyle: TextStyle(
@@ -235,6 +223,10 @@ class _InfoUserState extends State<InfoUser> {
                           enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(10),
                             borderSide: BorderSide(color: Colors.grey.shade300),
+                          ),
+                          prefix: Padding(
+                            padding: EdgeInsets.all(4),
+                            child: Text("+62 "),
                           ),
                           focusedBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(10),
@@ -248,6 +240,7 @@ class _InfoUserState extends State<InfoUser> {
                       ),
                       TextField(
                         controller: _numberwhatsappController,
+                        keyboardType: TextInputType.number,
                         decoration: InputDecoration(
                           labelText: "Whatsapp Number",
                           labelStyle: TextStyle(
@@ -257,6 +250,10 @@ class _InfoUserState extends State<InfoUser> {
                           enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(10),
                             borderSide: BorderSide(color: Colors.grey.shade300),
+                          ),
+                          prefix: Padding(
+                            padding: EdgeInsets.all(4),
+                            child: Text("+62 "),
                           ),
                           focusedBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(10),
@@ -279,8 +276,8 @@ class _InfoUserState extends State<InfoUser> {
                                 _lastnameController.text,
                                 _emailController.text,
                                 _addressController.text,
-                                _numberphoneController.text,
-                                _numberwhatsappController.text);
+                                '+62${_numberphoneController.text}',
+                                '+62${_numberwhatsappController.text}');
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
