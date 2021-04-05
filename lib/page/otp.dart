@@ -1,3 +1,4 @@
+import 'package:caffe_both_twenty/page/check_user.dart';
 import 'package:caffe_both_twenty/page/info_login.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -29,7 +30,7 @@ class _OTPScreenState extends State<OTPScreen> {
     return Scaffold(
       key: _scaffoldkey,
       appBar: AppBar(
-        backgroundColor: Colors.blueAccent,
+        backgroundColor: Color(0xffe92b05),
         title: Text('OTP Verification'),
       ),
       body: Column(
@@ -65,7 +66,7 @@ class _OTPScreenState extends State<OTPScreen> {
                     if (value.user != null) {
                       Navigator.pushAndRemoveUntil(
                           context,
-                          MaterialPageRoute(builder: (context) => InfoUser()),
+                          MaterialPageRoute(builder: (context) => CheckUser()),
                           (route) => false);
                     }
                   });
@@ -92,7 +93,7 @@ class _OTPScreenState extends State<OTPScreen> {
             if (value.user != null) {
               Navigator.pushAndRemoveUntil(
                   context,
-                  MaterialPageRoute(builder: (context) => InfoUser()),
+                  MaterialPageRoute(builder: (context) => CheckUser()),
                   (route) => false);
             }
           });

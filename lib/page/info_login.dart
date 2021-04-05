@@ -1,11 +1,13 @@
 import 'dart:convert';
 import 'package:caffe_both_twenty/models/user.dart';
+import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
 import 'package:caffe_both_twenty/page/home.dart';
 import 'package:caffe_both_twenty/page/login.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import '../models/usermodel.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class InfoUser extends StatefulWidget {
   @override
@@ -78,250 +80,270 @@ class _InfoUserState extends State<InfoUser> {
           ),
         ),
         backgroundColor: Colors.white,
-        body: SingleChildScrollView(
-          child: Center(
-            child: Container(
-              margin: EdgeInsets.all(16.0),
-              padding: EdgeInsets.only(left: 16, right: 16),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Text(
-                        "Create Info Account",
-                        style: TextStyle(
-                            fontSize: 26, fontWeight: FontWeight.bold),
-                      ),
-                      SizedBox(
-                        height: 6,
-                      ),
-                      Text(
-                        "Create Info",
-                        style: TextStyle(
-                            fontSize: 20, color: Colors.grey.shade400),
-                      ),
-                    ],
-                  ),
-                  SizedBox(
-                    height: 30.0,
-                  ),
-                  Visibility(
-                      visible: false,
-                      child: TextField(
-                        controller: _uidController,
-                        enabled: false,
-                      )),
-                  SizedBox(
-                    height: 16,
-                  ),
-                  Column(
-                    children: <Widget>[
-                      TextField(
-                        controller: _firstnameController,
-                        decoration: InputDecoration(
-                          labelText: "First Name",
-                          labelStyle: TextStyle(
-                              fontSize: 14,
-                              color: Colors.grey.shade400,
-                              fontWeight: FontWeight.w600),
-                          enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10),
-                            borderSide: BorderSide(color: Colors.grey.shade300),
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10),
-                            borderSide:
-                                BorderSide(color: Colors.purple.shade300),
-                          ),
-                          floatingLabelBehavior: FloatingLabelBehavior.auto,
+        body: WillPopScope(
+          onWillPop: onWillPop,
+          child: SingleChildScrollView(
+            child: Center(
+              child: Container(
+                margin: EdgeInsets.all(16.0),
+                padding: EdgeInsets.only(left: 16, right: 16),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Text(
+                          "Create Info Account",
+                          style: TextStyle(
+                              fontSize: 26, fontWeight: FontWeight.bold),
                         ),
-                      ),
-                      SizedBox(
-                        height: 16,
-                      ),
-                      TextField(
-                        controller: _lastnameController,
-                        decoration: InputDecoration(
-                          labelText: "Last Name",
-                          labelStyle: TextStyle(
-                              fontSize: 14,
-                              color: Colors.grey.shade400,
-                              fontWeight: FontWeight.w600),
-                          enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10),
-                            borderSide: BorderSide(color: Colors.grey.shade300),
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10),
-                            borderSide:
-                                BorderSide(color: Colors.purple.shade300),
-                          ),
-                          floatingLabelBehavior: FloatingLabelBehavior.auto,
+                        SizedBox(
+                          height: 6,
                         ),
-                      ),
-                      SizedBox(
-                        height: 16,
-                      ),
-                      TextField(
-                        controller: _emailController,
-                        decoration: InputDecoration(
-                          labelText: "Email",
-                          labelStyle: TextStyle(
-                              fontSize: 14,
-                              color: Colors.grey.shade400,
-                              fontWeight: FontWeight.w600),
-                          enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10),
-                            borderSide: BorderSide(color: Colors.grey.shade300),
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10),
-                            borderSide:
-                                BorderSide(color: Colors.purple.shade300),
-                          ),
-                          floatingLabelBehavior: FloatingLabelBehavior.auto,
+                        Text(
+                          "Create Info",
+                          style: TextStyle(
+                              fontSize: 20, color: Colors.grey.shade400),
                         ),
-                      ),
-                      SizedBox(
-                        height: 16,
-                      ),
-                      TextField(
-                        controller: _addressController,
-                        decoration: InputDecoration(
-                          labelText: "Address",
-                          labelStyle: TextStyle(
-                              fontSize: 14,
-                              color: Colors.grey.shade400,
-                              fontWeight: FontWeight.w600),
-                          enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10),
-                            borderSide: BorderSide(color: Colors.grey.shade300),
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10),
-                            borderSide:
-                                BorderSide(color: Colors.purple.shade300),
-                          ),
-                          floatingLabelBehavior: FloatingLabelBehavior.auto,
-                        ),
-                      ),
-                      SizedBox(
-                        height: 16,
-                      ),
-                      TextFormField(
-                        controller: _numberphoneController,
-                        keyboardType: TextInputType.number,
-                        decoration: InputDecoration(
-                          labelText: "Phone Number",
-                          labelStyle: TextStyle(
-                              fontSize: 14,
-                              color: Colors.grey.shade400,
-                              fontWeight: FontWeight.w600),
-                          enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10),
-                            borderSide: BorderSide(color: Colors.grey.shade300),
-                          ),
-                          prefix: Padding(
-                            padding: EdgeInsets.all(4),
-                            child: Text("+62 "),
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10),
-                            borderSide:
-                                BorderSide(color: Colors.purple.shade300),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 30.0,
+                    ),
+                    Visibility(
+                        visible: false,
+                        child: TextField(
+                          controller: _uidController,
+                          enabled: false,
+                        )),
+                    SizedBox(
+                      height: 16,
+                    ),
+                    Column(
+                      children: <Widget>[
+                        TextField(
+                          controller: _firstnameController,
+                          decoration: InputDecoration(
+                            labelText: "First Name",
+                            labelStyle: TextStyle(
+                                fontSize: 14,
+                                color: Colors.grey.shade400,
+                                fontWeight: FontWeight.w600),
+                            enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10),
+                              borderSide:
+                                  BorderSide(color: Colors.grey.shade300),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10),
+                              borderSide: BorderSide(color: Color(0xffe92b05)),
+                            ),
+                            floatingLabelBehavior: FloatingLabelBehavior.auto,
                           ),
                         ),
-                      ),
-                      SizedBox(
-                        height: 16,
-                      ),
-                      TextField(
-                        controller: _numberwhatsappController,
-                        keyboardType: TextInputType.number,
-                        decoration: InputDecoration(
-                          labelText: "Whatsapp Number",
-                          labelStyle: TextStyle(
-                              fontSize: 14,
-                              color: Colors.grey.shade400,
-                              fontWeight: FontWeight.w600),
-                          enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10),
-                            borderSide: BorderSide(color: Colors.grey.shade300),
-                          ),
-                          prefix: Padding(
-                            padding: EdgeInsets.all(4),
-                            child: Text("+62 "),
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10),
-                            borderSide:
-                                BorderSide(color: Colors.purple.shade300),
-                          ),
-                          floatingLabelBehavior: FloatingLabelBehavior.auto,
+                        SizedBox(
+                          height: 16,
                         ),
-                      ),
-                      SizedBox(
-                        height: 30,
-                      ),
-                      Container(
-                        height: 50,
-                        child: FlatButton(
-                          onPressed: () async {
-                            final UserModel user = await createUser(
-                                _uidController.text,
-                                _firstnameController.text,
-                                _lastnameController.text,
-                                _emailController.text,
-                                _addressController.text,
-                                '+62${_numberphoneController.text}',
-                                '+62${_numberwhatsappController.text}');
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => Home()));
-                          },
-                          padding: EdgeInsets.all(0),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(6),
+                        TextField(
+                          controller: _lastnameController,
+                          decoration: InputDecoration(
+                            labelText: "Last Name",
+                            labelStyle: TextStyle(
+                                fontSize: 14,
+                                color: Colors.grey.shade400,
+                                fontWeight: FontWeight.w600),
+                            enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10),
+                              borderSide:
+                                  BorderSide(color: Colors.grey.shade300),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10),
+                              borderSide: BorderSide(color: Color(0xffe92b05)),
+                            ),
+                            floatingLabelBehavior: FloatingLabelBehavior.auto,
                           ),
-                          child: Ink(
-                            decoration: BoxDecoration(
-                              gradient: LinearGradient(
-                                begin: Alignment.centerLeft,
-                                end: Alignment.centerRight,
-                                colors: [Color(0xffff38f1), Color(0xffba00ff)],
-                                stops: [0, 1],
-                              ),
+                        ),
+                        SizedBox(
+                          height: 16,
+                        ),
+                        TextField(
+                          controller: _emailController,
+                          decoration: InputDecoration(
+                            labelText: "Email",
+                            labelStyle: TextStyle(
+                                fontSize: 14,
+                                color: Colors.grey.shade400,
+                                fontWeight: FontWeight.w600),
+                            enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10),
+                              borderSide:
+                                  BorderSide(color: Colors.grey.shade300),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10),
+                              borderSide: BorderSide(color: Color(0xffe92b05)),
+                            ),
+                            floatingLabelBehavior: FloatingLabelBehavior.auto,
+                          ),
+                        ),
+                        SizedBox(
+                          height: 16,
+                        ),
+                        TextField(
+                          controller: _addressController,
+                          decoration: InputDecoration(
+                            labelText: "Address",
+                            labelStyle: TextStyle(
+                                fontSize: 14,
+                                color: Colors.grey.shade400,
+                                fontWeight: FontWeight.w600),
+                            enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10),
+                              borderSide:
+                                  BorderSide(color: Colors.grey.shade300),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10),
+                              borderSide: BorderSide(color: Color(0xffe92b05)),
+                            ),
+                            floatingLabelBehavior: FloatingLabelBehavior.auto,
+                          ),
+                        ),
+                        SizedBox(
+                          height: 16,
+                        ),
+                        TextFormField(
+                          controller: _numberphoneController,
+                          keyboardType: TextInputType.number,
+                          decoration: InputDecoration(
+                            labelText: "Phone Number",
+                            labelStyle: TextStyle(
+                                fontSize: 14,
+                                color: Colors.grey.shade400,
+                                fontWeight: FontWeight.w600),
+                            enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10),
+                              borderSide:
+                                  BorderSide(color: Colors.grey.shade300),
+                            ),
+                            prefix: Padding(
+                              padding: EdgeInsets.all(4),
+                              child: Text("+62 "),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10),
+                              borderSide: BorderSide(color: Color(0xffe92b05)),
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          height: 16,
+                        ),
+                        TextField(
+                          controller: _numberwhatsappController,
+                          keyboardType: TextInputType.number,
+                          decoration: InputDecoration(
+                            labelText: "Whatsapp Number",
+                            labelStyle: TextStyle(
+                                fontSize: 14,
+                                color: Colors.grey.shade400,
+                                fontWeight: FontWeight.w600),
+                            enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10),
+                              borderSide:
+                                  BorderSide(color: Colors.grey.shade300),
+                            ),
+                            prefix: Padding(
+                              padding: EdgeInsets.all(4),
+                              child: Text("+62 "),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10),
+                              borderSide: BorderSide(color: Color(0xffe92b05)),
+                            ),
+                            floatingLabelBehavior: FloatingLabelBehavior.auto,
+                          ),
+                        ),
+                        SizedBox(
+                          height: 30,
+                        ),
+                        Container(
+                          height: 50,
+                          child: FlatButton(
+                            onPressed: () async {
+                              final UserModel user = await createUser(
+                                  _uidController.text,
+                                  _firstnameController.text,
+                                  _lastnameController.text,
+                                  _emailController.text,
+                                  _addressController.text,
+                                  '+62${_numberphoneController.text}',
+                                  '+62${_numberwhatsappController.text}');
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => Home()));
+                            },
+                            padding: EdgeInsets.all(0),
+                            shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(6),
                             ),
-                            child: Container(
-                              alignment: Alignment.center,
-                              constraints: BoxConstraints(
-                                  minHeight: 50, maxWidth: double.infinity),
-                              child: Text(
-                                "Sign up",
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.white),
-                                textAlign: TextAlign.center,
+                            child: Ink(
+                              decoration: BoxDecoration(
+                                gradient: LinearGradient(
+                                  begin: Alignment.centerLeft,
+                                  end: Alignment.centerRight,
+                                  colors: [
+                                    Color(0xfffdaa19),
+                                    Color(0xffe92b05)
+                                  ],
+                                  stops: [0, 1],
+                                ),
+                                borderRadius: BorderRadius.circular(6),
+                              ),
+                              child: Container(
+                                alignment: Alignment.center,
+                                constraints: BoxConstraints(
+                                    minHeight: 50, maxWidth: double.infinity),
+                                child: Text(
+                                  "Sign up",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.white),
+                                  textAlign: TextAlign.center,
+                                ),
                               ),
                             ),
                           ),
                         ),
-                      ),
-                      SizedBox(
-                        height: 300,
-                      )
-                    ],
-                  ),
-                ],
+                        SizedBox(
+                          height: 300,
+                        )
+                      ],
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
         ));
+  }
+
+  DateTime currentBackPressTime;
+  Future<bool> onWillPop() async {
+    DateTime now = DateTime.now();
+    if (currentBackPressTime == null ||
+        now.difference(currentBackPressTime) > Duration(seconds: 2)) {
+      currentBackPressTime = now;
+      Fluttertoast.showToast(msg: "Tekan Lagi Untuk Keluar");
+      return Future.value(false);
+    }
+    SystemNavigator.pop();
+    await FirebaseAuth.instance.signOut();
+    return Future.value(true);
   }
 
   @override

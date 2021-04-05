@@ -1,9 +1,11 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'login.dart';
 import '../models/user.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -30,12 +32,28 @@ class _HomeState extends State<Home> {
           )
         ],
       ),
-      body: Center(
+      body: WillPopScope(
+        onWillPop: onWillPop,
         child: Center(
-          child: Text(uid + "\nNomer Hp : " + number),
+          child: Center(
+            child: Text(uid + "\nNomer Hp : " + number),
+          ),
         ),
       ),
     );
+  }
+
+  DateTime currentBackPressTime;
+  Future<bool> onWillPop() {
+    DateTime now = DateTime.now();
+    if (currentBackPressTime == null ||
+        now.difference(currentBackPressTime) > Duration(seconds: 2)) {
+      currentBackPressTime = now;
+      Fluttertoast.showToast(msg: "Tekan Lagi Untuk Keluar");
+      return Future.value(false);
+    }
+    SystemNavigator.pop();
+    return Future.value(true);
   }
 
   @override

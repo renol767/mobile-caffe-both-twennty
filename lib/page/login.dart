@@ -91,13 +91,13 @@ class _LoginScreenState extends State<LoginScreen> {
                             enabledBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(10),
                               borderSide: BorderSide(
-                                color: Colors.grey.shade300,
+                                color: Color(0xffe92b05),
                               ),
                             ),
                             focusedBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(15),
                                 borderSide: BorderSide(
-                                  color: Colors.purple.shade300,
+                                  color: Color(0xffe92b05),
                                 )),
                             prefix: Padding(
                               padding: EdgeInsets.all(4),
@@ -129,7 +129,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               gradient: LinearGradient(
                                 begin: Alignment.centerLeft,
                                 end: Alignment.centerRight,
-                                colors: [Color(0xffff38f1), Color(0xffba00ff)],
+                                colors: [Color(0xfffdaa19), Color(0xffe92b05)],
                                 stops: [0, 1],
                               ),
                             ),
