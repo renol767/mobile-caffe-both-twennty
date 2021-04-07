@@ -17,8 +17,13 @@ class Profile extends StatefulWidget {
 }
 
 class _ProfileState extends State<Profile> {
-  final String lat = "-6.3970673";
-  final String lng = "108.2807773";
+  _launchURL(String url, String errmsg) async {
+    if (await canLaunch(url)) {
+      launch(url);
+    } else {
+      Fluttertoast.showToast(msg: errmsg);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -92,7 +97,11 @@ class _ProfileState extends State<Profile> {
                       textColor: Color(0xfffd6f19),
                       height: 50.0,
                       color: Colors.grey.shade200,
-                      onPressed: () {},
+                      onPressed: () {
+                        _launchURL(
+                            "https://www.google.com/maps/place/Booth+Twenty+cafe+%26+resto/@-6.3971334,108.2842332,15z/data=!4m2!3m1!1s0x0:0xc1fb5c60196d1a5f?sa=X&ved=2ahUKEwiultHXtOzvAhXCeisKHe-9BgwQ_BIwE3oECCIQBQ",
+                            "Error Open Google Maps");
+                      },
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [

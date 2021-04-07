@@ -4,13 +4,19 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class ContactMe extends StatefulWidget {
-  ContactMe({Key key}) : super(key: key);
-
   @override
   _ContactMeState createState() => _ContactMeState();
 }
 
 class _ContactMeState extends State<ContactMe> {
+  _launchURL(String url, String errmsg) async {
+    if (await canLaunch(url)) {
+      launch(url);
+    } else {
+      Fluttertoast.showToast(msg: errmsg);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -64,13 +70,15 @@ class _ContactMeState extends State<ContactMe> {
               SizedBox(
                 height: 40,
               ),
-              FlatButton(
+              RaisedButton(
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10)),
                 textColor: Color(0xfffd6f19),
-                height: 50.0,
                 color: Colors.grey.shade200,
-                onPressed: () {},
+                onPressed: () {
+                  _launchURL("https://wa.me/+6285156816197?text=Hallo",
+                      "Error Open Whatsapp");
+                },
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
@@ -97,7 +105,10 @@ class _ContactMeState extends State<ContactMe> {
                 textColor: Color(0xfffd6f19),
                 height: 50.0,
                 color: Colors.grey.shade200,
-                onPressed: () {},
+                onPressed: () {
+                  _launchURL("https://instagram.com/renolakatsuki",
+                      "Error Open Instagram");
+                },
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
