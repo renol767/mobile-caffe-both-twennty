@@ -320,7 +320,7 @@ class _InfoUserState extends State<InfoUser> {
                           ),
                         ),
                         SizedBox(
-                          height: 300,
+                          height: 250,
                         )
                       ],
                     ),

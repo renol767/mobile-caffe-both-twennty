@@ -1,7 +1,13 @@
 import 'package:caffe_both_twenty/page/login.dart';
+import 'package:caffe_both_twenty/page/page_dashboard/profile/about.dart';
+import 'package:caffe_both_twenty/page/page_dashboard/profile/contactme.dart';
+import 'package:caffe_both_twenty/page/page_dashboard/profile/howtoorder.dart';
+import 'package:caffe_both_twenty/page/page_dashboard/profile/update_profil.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class Profile extends StatefulWidget {
   Profile({Key key}) : super(key: key);
@@ -11,6 +17,9 @@ class Profile extends StatefulWidget {
 }
 
 class _ProfileState extends State<Profile> {
+  final String lat = "-6.3970673";
+  final String lng = "108.2807773";
+
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -49,7 +58,12 @@ class _ProfileState extends State<Profile> {
                       textColor: Color(0xfffd6f19),
                       height: 50.0,
                       color: Colors.grey.shade200,
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => UpdateProfile()));
+                      },
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
@@ -107,7 +121,10 @@ class _ProfileState extends State<Profile> {
                       textColor: Color(0xfffd6f19),
                       height: 50.0,
                       color: Colors.grey.shade200,
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (context) => About()));
+                      },
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
@@ -136,7 +153,12 @@ class _ProfileState extends State<Profile> {
                       textColor: Color(0xfffd6f19),
                       height: 50.0,
                       color: Colors.grey.shade200,
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => HowToOrder()));
+                      },
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
@@ -165,7 +187,12 @@ class _ProfileState extends State<Profile> {
                       textColor: Color(0xfffd6f19),
                       height: 50.0,
                       color: Colors.grey.shade200,
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => ContactMe()));
+                      },
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [

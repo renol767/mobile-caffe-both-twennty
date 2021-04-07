@@ -41,7 +41,7 @@ class _SplashScreenState extends State<SplashScreen> {
             width: 300,
           ),
           SizedBox(height: 80.0),
-          SpinKitFadingCube(color: Colors.lightBlueAccent)
+          SpinKitFadingCube(color: Color(0xfffd6f19))
         ],
       ),
     );

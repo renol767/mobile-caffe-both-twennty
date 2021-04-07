@@ -40,6 +40,8 @@ dependencies:
   fluttertoast: ^8.0.3
   bottom_navy_bar: ^5.6.0
   font_awesome_flutter: ^9.0.0
+  url_launcher: ^6.0.3
+  timeline_tile: ^0.1.0
 
 dev_dependencies:
   flutter_test:
@@ -75,6 +77,12 @@ flutter:
     - images/homescreen.png
     - images/Logo.png
     - images/Icon.png
+    - images/timetile_store.png
+    - images/timetile_food.png
+    - images/timetile_qr.png
+    - images/timetile_bayar.png
+    - images/timetile_done.png
+    
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
