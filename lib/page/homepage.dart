@@ -27,7 +27,7 @@ class _MyHomePageState extends State<MyHomePage> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
               SizedBox(
-                height: 120,
+                height: 80,
               ),
               Center(
                 child: Text(
@@ -38,39 +38,38 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                 ),
               ),
-              SizedBox(
-                height: 50,
-              ),
-              Container(
-                  padding: EdgeInsets.all(30),
-                  child: Image.asset('images/homescreen.png',
-                      height: 300, width: 300)),
-              SizedBox(
-                height: 80,
-              ),
-              Container(
-                height: 50,
-                width: MediaQuery.of(context).size.width * 0.8,
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    colors: [Color(0xfffdaa19), Color(0xffe92b05)],
-                    stops: [0, 1],
-                  ),
-                  borderRadius: BorderRadius.all(Radius.circular(15)),
-                ),
-                child: InkWell(
-                  onTap: _login,
-                  child: Center(
-                    child: Text(
-                      "Get Started",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.w600,
-                        fontSize: 15,
+              Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Container(
+                      padding: EdgeInsets.all(30),
+                      child: Image.asset('images/homescreen.png',
+                          height: 300, width: 300)),
+                  Container(
+                    height: 50,
+                    width: MediaQuery.of(context).size.width * 0.8,
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        colors: [Color(0xfffdaa19), Color(0xffe92b05)],
+                        stops: [0, 1],
+                      ),
+                      borderRadius: BorderRadius.all(Radius.circular(15)),
+                    ),
+                    child: InkWell(
+                      onTap: _login,
+                      child: Center(
+                        child: Text(
+                          "Get Started",
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.w600,
+                            fontSize: 15,
+                          ),
+                        ),
                       ),
                     ),
                   ),
-                ),
+                ],
               ),
             ],
           ),

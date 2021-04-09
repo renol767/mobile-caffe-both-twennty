@@ -1,26 +1,43 @@
 import 'package:caffe_both_twenty/models/usermodel.dart';
-import 'package:caffe_both_twenty/models/user.dart';
+import 'package:caffe_both_twenty/models/fetchuser.dart';
 import 'package:caffe_both_twenty/page/check_user.dart';
 import 'package:caffe_both_twenty/page/home.dart';
+import 'package:caffe_both_twenty/services/user_services.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:get_it/get_it.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class UpdateProfile extends StatefulWidget {
-  UpdateProfile({Key key}) : super(key: key);
-
   @override
   _UpdateProfileState createState() => _UpdateProfileState();
 }
 
 class _UpdateProfileState extends State<UpdateProfile> {
+  UserService get usersService => GetIt.I<UserService>();
+  FetchUser users;
   void initState() {
     super.initState();
-    _uid = FirebaseAuth.instance.currentUser.uid;
+    if (this.mounted) {
+      usersService
+          .getFetchuser(FirebaseAuth.instance.currentUser.uid)
+          .then((value) {
+        users = value;
+        _firstnameController.text = users.firstName;
+        _lastnameController.text = users.lastName;
+        _emailController.text = users.email;
+        _addressController.text = users.address;
+        _numberphoneController.text = users.numberphone;
+        _numberwhatsappController.text = users.numberwhatsapp;
+      });
+    }
+    uid = FirebaseAuth.instance.currentUser.uid;
   }
 
-  String _uid;
+  String uid;
+
   Future<UserModel> updateUser(
       String uid,
       String firstname,
@@ -29,8 +46,7 @@ class _UpdateProfileState extends State<UpdateProfile> {
       String address,
       String numberphone,
       String numberwhatsapp) async {
-    final String apiURL =
-        "https://0ba28d60f15343b797e43f64a5a4258a.000webhostapp.com/api/user";
+    final String apiURL = "http://192.168.1.2/caffe_both_twenty/api/user";
     final response = await http.put(apiURL, body: {
       "uid": uid,
       "first_name": firstname,
@@ -60,7 +76,7 @@ class _UpdateProfileState extends State<UpdateProfile> {
 
   @override
   Widget build(BuildContext context) {
-    _uidController.text = _uid;
+    _uidController.text = uid;
     return Scaffold(
       appBar: AppBar(
         brightness: Brightness.light,
@@ -222,10 +238,6 @@ class _UpdateProfileState extends State<UpdateProfile> {
                           borderRadius: BorderRadius.circular(10),
                           borderSide: BorderSide(color: Colors.grey.shade300),
                         ),
-                        prefix: Padding(
-                          padding: EdgeInsets.all(4),
-                          child: Text("+62 "),
-                        ),
                         focusedBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10),
                           borderSide: BorderSide(color: Color(0xffe92b05)),
@@ -249,10 +261,6 @@ class _UpdateProfileState extends State<UpdateProfile> {
                           borderRadius: BorderRadius.circular(10),
                           borderSide: BorderSide(color: Colors.grey.shade300),
                         ),
-                        prefix: Padding(
-                          padding: EdgeInsets.all(4),
-                          child: Text("+62 "),
-                        ),
                         focusedBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10),
                           borderSide: BorderSide(color: Color(0xffe92b05)),
@@ -273,8 +281,11 @@ class _UpdateProfileState extends State<UpdateProfile> {
                               _lastnameController.text,
                               _emailController.text,
                               _addressController.text,
-                              '+62${_numberphoneController.text}',
-                              '+62${_numberwhatsappController.text}');
+                              _numberphoneController.text,
+                              _numberwhatsappController.text);
+                          Navigator.push(context,
+                              MaterialPageRoute(builder: (context) => Home()));
+                          Fluttertoast.showToast(msg: "Success Update Data");
                         },
                         padding: EdgeInsets.all(0),
                         shape: RoundedRectangleBorder(

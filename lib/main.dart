@@ -1,15 +1,23 @@
 import 'dart:async';
+import 'package:caffe_both_twenty/services/user_services.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 import 'page/splashscreen.dart';
+import 'package:get_it/get_it.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   Firebase.initializeApp();
+  setupLocaator();
   runApp(MaterialApp(
     home: MyApp(),
     debugShowCheckedModeBanner: false,
   ));
+}
+
+void setupLocaator() {
+  GetIt.I.registerLazySingleton(() => UserService());
 }
 
 class MyApp extends StatelessWidget {

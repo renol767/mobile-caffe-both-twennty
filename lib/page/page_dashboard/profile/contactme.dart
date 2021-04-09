@@ -70,7 +70,8 @@ class _ContactMeState extends State<ContactMe> {
               SizedBox(
                 height: 40,
               ),
-              RaisedButton(
+              FlatButton(
+                height: 50,
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10)),
                 textColor: Color(0xfffd6f19),

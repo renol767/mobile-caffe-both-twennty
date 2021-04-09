@@ -23,8 +23,7 @@ class _InfoUserState extends State<InfoUser> {
       String address,
       String numberphone,
       String numberwhatsapp) async {
-    final String apiURL =
-        "https://0ba28d60f15343b797e43f64a5a4258a.000webhostapp.com/api/user";
+    final String apiURL = "http://192.168.1.2/caffe_both_twenty/api/user";
     final response = await http.post(apiURL, body: {
       "uid": uid,
       "first_name": firstname,

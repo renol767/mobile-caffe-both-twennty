@@ -35,13 +35,11 @@ class _CheckUserState extends State<CheckUser> {
   void initState() {
     super.initState();
     uid = FirebaseAuth.instance.currentUser.uid;
-    getUser();
   }
 
   String uid;
   Future<CheckUser> getUser() async {
-    final url =
-        "https://0ba28d60f15343b797e43f64a5a4258a.000webhostapp.com/api/user?uid=$uid";
+    final url = "http://192.168.1.2/caffe_both_twenty/api/user?uid=$uid";
     final response = await http.get(url);
     if (response.statusCode == 200) {
       Navigator.push(context, MaterialPageRoute(builder: (context) => Home()));
