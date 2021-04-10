@@ -23,7 +23,7 @@ class _InfoUserState extends State<InfoUser> {
       String address,
       String numberphone,
       String numberwhatsapp) async {
-    final String apiURL = "http://192.168.1.2/caffe_both_twenty/api/user";
+    final String apiURL = "http://192.168.1.10/caffe_both_twenty/api/user";
     final response = await http.post(apiURL, body: {
       "uid": uid,
       "first_name": firstname,
@@ -40,6 +40,22 @@ class _InfoUserState extends State<InfoUser> {
       return UserModel.fromJson(responseString);
     } else {
       return null;
+    }
+  }
+
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  bool _autoValidate = false;
+  String _firstname;
+  String _email;
+  String _numberphone;
+  String _numberwhatsapp;
+
+  void validateAndSave() {
+    final FormState form = _formKey.currentState;
+    if (form.validate()) {
+      print('Form is valid');
+    } else {
+      print('Form is invalid');
     }
   }
 
@@ -120,208 +136,241 @@ class _InfoUserState extends State<InfoUser> {
                     SizedBox(
                       height: 16,
                     ),
-                    Column(
-                      children: <Widget>[
-                        TextField(
-                          controller: _firstnameController,
-                          decoration: InputDecoration(
-                            labelText: "First Name",
-                            labelStyle: TextStyle(
-                                fontSize: 14,
-                                color: Colors.grey.shade400,
-                                fontWeight: FontWeight.w600),
-                            enabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10),
-                              borderSide:
-                                  BorderSide(color: Colors.grey.shade300),
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10),
-                              borderSide: BorderSide(color: Color(0xffe92b05)),
-                            ),
-                            floatingLabelBehavior: FloatingLabelBehavior.auto,
-                          ),
-                        ),
-                        SizedBox(
-                          height: 16,
-                        ),
-                        TextField(
-                          controller: _lastnameController,
-                          decoration: InputDecoration(
-                            labelText: "Last Name",
-                            labelStyle: TextStyle(
-                                fontSize: 14,
-                                color: Colors.grey.shade400,
-                                fontWeight: FontWeight.w600),
-                            enabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10),
-                              borderSide:
-                                  BorderSide(color: Colors.grey.shade300),
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10),
-                              borderSide: BorderSide(color: Color(0xffe92b05)),
-                            ),
-                            floatingLabelBehavior: FloatingLabelBehavior.auto,
-                          ),
-                        ),
-                        SizedBox(
-                          height: 16,
-                        ),
-                        TextField(
-                          controller: _emailController,
-                          decoration: InputDecoration(
-                            labelText: "Email",
-                            labelStyle: TextStyle(
-                                fontSize: 14,
-                                color: Colors.grey.shade400,
-                                fontWeight: FontWeight.w600),
-                            enabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10),
-                              borderSide:
-                                  BorderSide(color: Colors.grey.shade300),
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10),
-                              borderSide: BorderSide(color: Color(0xffe92b05)),
-                            ),
-                            floatingLabelBehavior: FloatingLabelBehavior.auto,
-                          ),
-                        ),
-                        SizedBox(
-                          height: 16,
-                        ),
-                        TextField(
-                          controller: _addressController,
-                          decoration: InputDecoration(
-                            labelText: "Address",
-                            labelStyle: TextStyle(
-                                fontSize: 14,
-                                color: Colors.grey.shade400,
-                                fontWeight: FontWeight.w600),
-                            enabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10),
-                              borderSide:
-                                  BorderSide(color: Colors.grey.shade300),
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10),
-                              borderSide: BorderSide(color: Color(0xffe92b05)),
-                            ),
-                            floatingLabelBehavior: FloatingLabelBehavior.auto,
-                          ),
-                        ),
-                        SizedBox(
-                          height: 16,
-                        ),
-                        TextFormField(
-                          controller: _numberphoneController,
-                          keyboardType: TextInputType.number,
-                          decoration: InputDecoration(
-                            labelText: "Phone Number",
-                            labelStyle: TextStyle(
-                                fontSize: 14,
-                                color: Colors.grey.shade400,
-                                fontWeight: FontWeight.w600),
-                            enabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10),
-                              borderSide:
-                                  BorderSide(color: Colors.grey.shade300),
-                            ),
-                            prefix: Padding(
-                              padding: EdgeInsets.all(4),
-                              child: Text("+62 "),
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10),
-                              borderSide: BorderSide(color: Color(0xffe92b05)),
-                            ),
-                          ),
-                        ),
-                        SizedBox(
-                          height: 16,
-                        ),
-                        TextField(
-                          controller: _numberwhatsappController,
-                          keyboardType: TextInputType.number,
-                          decoration: InputDecoration(
-                            labelText: "Whatsapp Number",
-                            labelStyle: TextStyle(
-                                fontSize: 14,
-                                color: Colors.grey.shade400,
-                                fontWeight: FontWeight.w600),
-                            enabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10),
-                              borderSide:
-                                  BorderSide(color: Colors.grey.shade300),
-                            ),
-                            prefix: Padding(
-                              padding: EdgeInsets.all(4),
-                              child: Text("+62 "),
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10),
-                              borderSide: BorderSide(color: Color(0xffe92b05)),
-                            ),
-                            floatingLabelBehavior: FloatingLabelBehavior.auto,
-                          ),
-                        ),
-                        SizedBox(
-                          height: 30,
-                        ),
-                        Container(
-                          height: 50,
-                          child: FlatButton(
-                            onPressed: () async {
-                              final UserModel user = await createUser(
-                                  _uidController.text,
-                                  _firstnameController.text,
-                                  _lastnameController.text,
-                                  _emailController.text,
-                                  _addressController.text,
-                                  '+62${_numberphoneController.text}',
-                                  '+62${_numberwhatsappController.text}');
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => Home()));
+                    Form(
+                      key: _formKey,
+                      autovalidate: _autoValidate,
+                      child: Column(
+                        children: <Widget>[
+                          TextFormField(
+                            validator: validateName,
+                            onSaved: (String val) {
+                              _firstname = val;
                             },
-                            padding: EdgeInsets.all(0),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(6),
+                            controller: _firstnameController,
+                            decoration: InputDecoration(
+                              labelText: "First Name",
+                              labelStyle: TextStyle(
+                                  fontSize: 14,
+                                  color: Colors.grey.shade400,
+                                  fontWeight: FontWeight.w600),
+                              enabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10),
+                                borderSide:
+                                    BorderSide(color: Colors.grey.shade300),
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10),
+                                borderSide:
+                                    BorderSide(color: Color(0xffe92b05)),
+                              ),
+                              floatingLabelBehavior: FloatingLabelBehavior.auto,
                             ),
-                            child: Ink(
-                              decoration: BoxDecoration(
-                                gradient: LinearGradient(
-                                  begin: Alignment.centerLeft,
-                                  end: Alignment.centerRight,
-                                  colors: [
-                                    Color(0xfffdaa19),
-                                    Color(0xffe92b05)
-                                  ],
-                                  stops: [0, 1],
-                                ),
+                          ),
+                          SizedBox(
+                            height: 16,
+                          ),
+                          TextField(
+                            controller: _lastnameController,
+                            decoration: InputDecoration(
+                              labelText: "Last Name",
+                              labelStyle: TextStyle(
+                                  fontSize: 14,
+                                  color: Colors.grey.shade400,
+                                  fontWeight: FontWeight.w600),
+                              enabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10),
+                                borderSide:
+                                    BorderSide(color: Colors.grey.shade300),
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10),
+                                borderSide:
+                                    BorderSide(color: Color(0xffe92b05)),
+                              ),
+                              floatingLabelBehavior: FloatingLabelBehavior.auto,
+                            ),
+                          ),
+                          SizedBox(
+                            height: 16,
+                          ),
+                          TextFormField(
+                            validator: validateEmail,
+                            onSaved: (String val) {
+                              _email = val;
+                            },
+                            controller: _emailController,
+                            decoration: InputDecoration(
+                              labelText: "Email",
+                              labelStyle: TextStyle(
+                                  fontSize: 14,
+                                  color: Colors.grey.shade400,
+                                  fontWeight: FontWeight.w600),
+                              enabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10),
+                                borderSide:
+                                    BorderSide(color: Colors.grey.shade300),
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10),
+                                borderSide:
+                                    BorderSide(color: Color(0xffe92b05)),
+                              ),
+                              floatingLabelBehavior: FloatingLabelBehavior.auto,
+                            ),
+                          ),
+                          SizedBox(
+                            height: 16,
+                          ),
+                          TextField(
+                            controller: _addressController,
+                            decoration: InputDecoration(
+                              labelText: "Address",
+                              labelStyle: TextStyle(
+                                  fontSize: 14,
+                                  color: Colors.grey.shade400,
+                                  fontWeight: FontWeight.w600),
+                              enabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10),
+                                borderSide:
+                                    BorderSide(color: Colors.grey.shade300),
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10),
+                                borderSide:
+                                    BorderSide(color: Color(0xffe92b05)),
+                              ),
+                              floatingLabelBehavior: FloatingLabelBehavior.auto,
+                            ),
+                          ),
+                          SizedBox(
+                            height: 16,
+                          ),
+                          TextFormField(
+                            validator: validatePhoneNumber,
+                            onSaved: (String val) {
+                              _numberphone = val;
+                            },
+                            controller: _numberphoneController,
+                            keyboardType: TextInputType.number,
+                            decoration: InputDecoration(
+                              labelText: "Phone Number",
+                              labelStyle: TextStyle(
+                                  fontSize: 14,
+                                  color: Colors.grey.shade400,
+                                  fontWeight: FontWeight.w600),
+                              enabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10),
+                                borderSide:
+                                    BorderSide(color: Colors.grey.shade300),
+                              ),
+                              prefix: Padding(
+                                padding: EdgeInsets.all(4),
+                                child: Text("+62 "),
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10),
+                                borderSide:
+                                    BorderSide(color: Color(0xffe92b05)),
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            height: 16,
+                          ),
+                          TextFormField(
+                            validator: validateWhatsappNumber,
+                            onSaved: (String val) {
+                              _numberwhatsapp = val;
+                            },
+                            controller: _numberwhatsappController,
+                            keyboardType: TextInputType.number,
+                            decoration: InputDecoration(
+                              labelText: "Whatsapp Number",
+                              labelStyle: TextStyle(
+                                  fontSize: 14,
+                                  color: Colors.grey.shade400,
+                                  fontWeight: FontWeight.w600),
+                              enabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10),
+                                borderSide:
+                                    BorderSide(color: Colors.grey.shade300),
+                              ),
+                              prefix: Padding(
+                                padding: EdgeInsets.all(4),
+                                child: Text("+62 "),
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10),
+                                borderSide:
+                                    BorderSide(color: Color(0xffe92b05)),
+                              ),
+                              floatingLabelBehavior: FloatingLabelBehavior.auto,
+                            ),
+                          ),
+                          SizedBox(
+                            height: 30,
+                          ),
+                          Container(
+                            height: 50,
+                            child: FlatButton(
+                              onPressed: () async {
+                                if (_formKey.currentState.validate()) {
+                                  _formKey.currentState.save();
+                                  final UserModel user = await createUser(
+                                      _uidController.text,
+                                      _firstnameController.text,
+                                      _lastnameController.text,
+                                      _emailController.text,
+                                      _addressController.text,
+                                      '+62${_numberphoneController.text}',
+                                      '+62${_numberwhatsappController.text}');
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => Home()));
+                                } else {
+                                  setState(() {
+                                    _autoValidate = true;
+                                  });
+                                }
+                              },
+                              padding: EdgeInsets.all(0),
+                              shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(6),
                               ),
-                              child: Container(
-                                alignment: Alignment.center,
-                                constraints: BoxConstraints(
-                                    minHeight: 50, maxWidth: double.infinity),
-                                child: Text(
-                                  "Sign up",
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.white),
-                                  textAlign: TextAlign.center,
+                              child: Ink(
+                                decoration: BoxDecoration(
+                                  gradient: LinearGradient(
+                                    begin: Alignment.centerLeft,
+                                    end: Alignment.centerRight,
+                                    colors: [
+                                      Color(0xfffdaa19),
+                                      Color(0xffe92b05)
+                                    ],
+                                    stops: [0, 1],
+                                  ),
+                                  borderRadius: BorderRadius.circular(6),
+                                ),
+                                child: Container(
+                                  alignment: Alignment.center,
+                                  constraints: BoxConstraints(
+                                      minHeight: 50, maxWidth: double.infinity),
+                                  child: Text(
+                                    "Sign up",
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.white),
+                                    textAlign: TextAlign.center,
+                                  ),
                                 ),
                               ),
                             ),
                           ),
-                        ),
-                        SizedBox(
-                          height: 250,
-                        )
-                      ],
+                          SizedBox(
+                            height: 250,
+                          )
+                        ],
+                      ),
                     ),
                   ],
                 ),
@@ -329,6 +378,37 @@ class _InfoUserState extends State<InfoUser> {
             ),
           ),
         ));
+  }
+
+  String validateName(String value) {
+    if (value.isEmpty)
+      return 'First Name Tidak Boleh Kosong';
+    else
+      return null;
+  }
+
+  String validateEmail(String value) {
+    Pattern pattern =
+        r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
+    RegExp regex = new RegExp(pattern);
+    if (!regex.hasMatch(value))
+      return 'Enter Valid Email';
+    else
+      return null;
+  }
+
+  String validatePhoneNumber(String value) {
+    if (value.isEmpty)
+      return 'Phone Number Tidak Boleh Kosong';
+    else
+      return null;
+  }
+
+  String validateWhatsappNumber(String value) {
+    if (value.isEmpty)
+      return 'Whatsapp Number Tidak Boleh Kosong';
+    else
+      return null;
   }
 
   DateTime currentBackPressTime;

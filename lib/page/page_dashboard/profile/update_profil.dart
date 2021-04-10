@@ -36,7 +36,40 @@ class _UpdateProfileState extends State<UpdateProfile> {
     uid = FirebaseAuth.instance.currentUser.uid;
   }
 
-  String uid;
+  String validateName(String value) {
+    if (value.isEmpty)
+      return 'First Name Tidak Boleh Kosong';
+    else
+      return null;
+  }
+
+  String validateEmail(String value) {
+    Pattern pattern =
+        r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
+    RegExp regex = new RegExp(pattern);
+    if (!regex.hasMatch(value))
+      return 'Enter Valid Email';
+    else
+      return null;
+  }
+
+  String validatePhoneNumber(String value) {
+    if (value.isEmpty)
+      return 'Phone Number Tidak Boleh Kosong';
+    else
+      return null;
+  }
+
+  String validateWhatsappNumber(String value) {
+    if (value.isEmpty)
+      return 'Whatsapp Number Tidak Boleh Kosong';
+    else
+      return null;
+  }
+
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  bool _autoValidate = false;
+  String _firstname, _email, _numberphone, _numberwhatsapp, uid;
 
   Future<UserModel> updateUser(
       String uid,
@@ -46,7 +79,7 @@ class _UpdateProfileState extends State<UpdateProfile> {
       String address,
       String numberphone,
       String numberwhatsapp) async {
-    final String apiURL = "http://192.168.1.2/caffe_both_twenty/api/user";
+    final String apiURL = "http://192.168.1.10/caffe_both_twenty/api/user";
     final response = await http.put(apiURL, body: {
       "uid": uid,
       "first_name": firstname,
@@ -138,6 +171,10 @@ class _UpdateProfileState extends State<UpdateProfile> {
                 Column(
                   children: [
                     TextFormField(
+                      validator: validateName,
+                      onSaved: (String val) {
+                        _firstname = val;
+                      },
                       controller: _firstnameController,
                       decoration: InputDecoration(
                         labelText: "First Name",
@@ -181,7 +218,11 @@ class _UpdateProfileState extends State<UpdateProfile> {
                     SizedBox(
                       height: 16,
                     ),
-                    TextField(
+                    TextFormField(
+                      validator: validateEmail,
+                      onSaved: (String val) {
+                        _email = val;
+                      },
                       controller: _emailController,
                       decoration: InputDecoration(
                         labelText: "Email",
@@ -225,7 +266,11 @@ class _UpdateProfileState extends State<UpdateProfile> {
                     SizedBox(
                       height: 16,
                     ),
-                    TextField(
+                    TextFormField(
+                      validator: validatePhoneNumber,
+                      onSaved: (String val) {
+                        _numberphone = val;
+                      },
                       controller: _numberphoneController,
                       keyboardType: TextInputType.number,
                       decoration: InputDecoration(
@@ -248,7 +293,11 @@ class _UpdateProfileState extends State<UpdateProfile> {
                     SizedBox(
                       height: 16,
                     ),
-                    TextField(
+                    TextFormField(
+                      validator: validateWhatsappNumber,
+                      onSaved: (String val) {
+                        _numberwhatsapp = val;
+                      },
                       controller: _numberwhatsappController,
                       keyboardType: TextInputType.number,
                       decoration: InputDecoration(
@@ -275,17 +324,26 @@ class _UpdateProfileState extends State<UpdateProfile> {
                       height: 50,
                       child: FlatButton(
                         onPressed: () async {
-                          final UserModel user = await updateUser(
-                              _uidController.text,
-                              _firstnameController.text,
-                              _lastnameController.text,
-                              _emailController.text,
-                              _addressController.text,
-                              _numberphoneController.text,
-                              _numberwhatsappController.text);
-                          Navigator.push(context,
-                              MaterialPageRoute(builder: (context) => Home()));
-                          Fluttertoast.showToast(msg: "Success Update Data");
+                          if (_formKey.currentState.validate()) {
+                            _formKey.currentState.save();
+                            final UserModel user = await updateUser(
+                                _uidController.text,
+                                _firstnameController.text,
+                                _lastnameController.text,
+                                _emailController.text,
+                                _addressController.text,
+                                _numberphoneController.text,
+                                _numberwhatsappController.text);
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => Home()));
+                            Fluttertoast.showToast(msg: "Success Update Data");
+                          } else {
+                            setState(() {
+                              _autoValidate = true;
+                            });
+                          }
                         },
                         padding: EdgeInsets.all(0),
                         shape: RoundedRectangleBorder(
