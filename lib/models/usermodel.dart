@@ -11,15 +11,15 @@ String userModelToJson(List<UserModel> data) =>
     json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
 class UserModel {
-  UserModel({
-    this.uid,
-    this.firstName,
-    this.lastName,
-    this.email,
-    this.address,
-    this.numberphone,
-    this.numberwhatsapp,
-  });
+  UserModel(
+      {this.uid,
+      this.firstName,
+      this.lastName,
+      this.email,
+      this.address,
+      this.numberphone,
+      this.numberwhatsapp,
+      this.Token});
 
   String uid;
   String firstName;
@@ -28,6 +28,7 @@ class UserModel {
   String address;
   String numberphone;
   String numberwhatsapp;
+  String Token;
 
   factory UserModel.fromJson(Map<String, dynamic> json) => UserModel(
         uid: json["uid"],
@@ -37,6 +38,7 @@ class UserModel {
         address: json["address"],
         numberphone: json["numberphone"],
         numberwhatsapp: json["numberwhatsapp"],
+        Token: json["Token"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -47,5 +49,6 @@ class UserModel {
         "address": address,
         "numberphone": numberphone,
         "numberwhatsapp": numberwhatsapp,
+        "Token": Token,
       };
 }

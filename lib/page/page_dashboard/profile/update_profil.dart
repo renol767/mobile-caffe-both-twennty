@@ -70,6 +70,7 @@ class _UpdateProfileState extends State<UpdateProfile> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   bool _autoValidate = false;
   String _firstname, _email, _numberphone, _numberwhatsapp, uid;
+  final _token = "0a66838fcbd880483b9af2c91c6cef9e";
 
   Future<UserModel> updateUser(
       String uid,
@@ -78,8 +79,9 @@ class _UpdateProfileState extends State<UpdateProfile> {
       String email,
       String address,
       String numberphone,
-      String numberwhatsapp) async {
-    final String apiURL = "http://192.168.1.10/caffe_both_twenty/api/user";
+      String numberwhatsapp,
+      String Token) async {
+    final String apiURL = "http://192.168.1.21/caffe_both_twenty/api/user";
     final response = await http.put(apiURL, body: {
       "uid": uid,
       "first_name": firstname,
@@ -87,7 +89,8 @@ class _UpdateProfileState extends State<UpdateProfile> {
       "email": email,
       "address": address,
       "numberphone": numberphone,
-      "numberwhatsapp": numberwhatsapp
+      "numberwhatsapp": numberwhatsapp,
+      "Token": Token,
     });
 
     if (response.statusCode == 200) {
@@ -333,7 +336,8 @@ class _UpdateProfileState extends State<UpdateProfile> {
                                 _emailController.text,
                                 _addressController.text,
                                 _numberphoneController.text,
-                                _numberwhatsappController.text);
+                                _numberwhatsappController.text,
+                                _token);
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(

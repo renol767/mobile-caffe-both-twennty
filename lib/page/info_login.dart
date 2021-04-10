@@ -14,6 +14,8 @@ class InfoUser extends StatefulWidget {
   _InfoUserState createState() => _InfoUserState();
 }
 
+final _token = "0a66838fcbd880483b9af2c91c6cef9e";
+
 class _InfoUserState extends State<InfoUser> {
   Future<UserModel> createUser(
       String uid,
@@ -22,8 +24,9 @@ class _InfoUserState extends State<InfoUser> {
       String email,
       String address,
       String numberphone,
-      String numberwhatsapp) async {
-    final String apiURL = "http://192.168.1.10/caffe_both_twenty/api/user";
+      String numberwhatsapp,
+      String Token) async {
+    final String apiURL = "http://192.168.1.21/caffe_both_twenty/api/user";
     final response = await http.post(apiURL, body: {
       "uid": uid,
       "first_name": firstname,
@@ -31,7 +34,8 @@ class _InfoUserState extends State<InfoUser> {
       "email": email,
       "address": address,
       "numberphone": numberphone,
-      "numberwhatsapp": numberwhatsapp
+      "numberwhatsapp": numberwhatsapp,
+      "Token": Token
     });
 
     if (response.statusCode == 200) {
@@ -323,7 +327,8 @@ class _InfoUserState extends State<InfoUser> {
                                       _emailController.text,
                                       _addressController.text,
                                       '+62${_numberphoneController.text}',
-                                      '+62${_numberwhatsappController.text}');
+                                      '+62${_numberwhatsappController.text}',
+                                      _token);
                                   Navigator.push(
                                       context,
                                       MaterialPageRoute(
