@@ -162,6 +162,11 @@ class _InfoUserState extends State<InfoUser> {
                                 borderSide:
                                     BorderSide(color: Colors.grey.shade300),
                               ),
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10),
+                                borderSide:
+                                    BorderSide(color: Color(0xffe92b05)),
+                              ),
                               focusedBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(10),
                                 borderSide:
@@ -214,6 +219,11 @@ class _InfoUserState extends State<InfoUser> {
                                 borderSide:
                                     BorderSide(color: Colors.grey.shade300),
                               ),
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10),
+                                borderSide:
+                                    BorderSide(color: Color(0xffe92b05)),
+                              ),
                               focusedBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(10),
                                 borderSide:
@@ -258,6 +268,7 @@ class _InfoUserState extends State<InfoUser> {
                             keyboardType: TextInputType.number,
                             decoration: InputDecoration(
                               labelText: "Phone Number",
+                              hintText: "8123456789",
                               labelStyle: TextStyle(
                                   fontSize: 14,
                                   color: Colors.grey.shade400,
@@ -266,6 +277,11 @@ class _InfoUserState extends State<InfoUser> {
                                 borderRadius: BorderRadius.circular(10),
                                 borderSide:
                                     BorderSide(color: Colors.grey.shade300),
+                              ),
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10),
+                                borderSide:
+                                    BorderSide(color: Color(0xffe92b05)),
                               ),
                               prefix: Padding(
                                 padding: EdgeInsets.all(4),
@@ -290,6 +306,7 @@ class _InfoUserState extends State<InfoUser> {
                             keyboardType: TextInputType.number,
                             decoration: InputDecoration(
                               labelText: "Whatsapp Number",
+                              hintText: "8123456789",
                               labelStyle: TextStyle(
                                   fontSize: 14,
                                   color: Colors.grey.shade400,
@@ -298,6 +315,11 @@ class _InfoUserState extends State<InfoUser> {
                                 borderRadius: BorderRadius.circular(10),
                                 borderSide:
                                     BorderSide(color: Colors.grey.shade300),
+                              ),
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10),
+                                borderSide:
+                                    BorderSide(color: Color(0xffe92b05)),
                               ),
                               prefix: Padding(
                                 padding: EdgeInsets.all(4),
