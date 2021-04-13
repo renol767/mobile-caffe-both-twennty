@@ -81,7 +81,7 @@ class _UpdateProfileState extends State<UpdateProfile> {
       String numberphone,
       String numberwhatsapp,
       String Token) async {
-    final String apiURL = "http://192.168.1.7/caffe_both_twenty/api/user";
+    final String apiURL = "http://192.168.1.4/caffe_both_twenty/api/user";
     final response = await http.put(apiURL, body: {
       "uid": uid,
       "first_name": firstname,
@@ -209,7 +209,7 @@ class _UpdateProfileState extends State<UpdateProfile> {
                       TextField(
                         controller: _lastnameController,
                         decoration: InputDecoration(
-                          labelText: "Last Name",
+                          labelText: "Last Name (Optional)",
                           labelStyle: TextStyle(
                               fontSize: 14,
                               color: Colors.grey.shade400,
@@ -261,7 +261,7 @@ class _UpdateProfileState extends State<UpdateProfile> {
                       TextField(
                         controller: _addressController,
                         decoration: InputDecoration(
-                          labelText: "Address",
+                          labelText: "Address (Optional)",
                           labelStyle: TextStyle(
                               fontSize: 14,
                               color: Colors.grey.shade400,
@@ -285,9 +285,11 @@ class _UpdateProfileState extends State<UpdateProfile> {
                         onSaved: (String val) {
                           _numberphone = val;
                         },
+                        maxLength: 15,
                         controller: _numberphoneController,
                         keyboardType: TextInputType.number,
                         decoration: InputDecoration(
+                          counterStyle: TextStyle(color: Color(0xffe92b05)),
                           labelText: "Phone Number",
                           labelStyle: TextStyle(
                               fontSize: 14,
@@ -316,9 +318,11 @@ class _UpdateProfileState extends State<UpdateProfile> {
                         onSaved: (String val) {
                           _numberwhatsapp = val;
                         },
+                        maxLength: 15,
                         controller: _numberwhatsappController,
                         keyboardType: TextInputType.number,
                         decoration: InputDecoration(
+                          counterStyle: TextStyle(color: Color(0xffe92b05)),
                           labelText: "Whatsapp Number",
                           labelStyle: TextStyle(
                               fontSize: 14,

@@ -26,7 +26,7 @@ class _InfoUserState extends State<InfoUser> {
       String numberphone,
       String numberwhatsapp,
       String Token) async {
-    final String apiURL = "http://192.168.1.7/caffe_both_twenty/api/user";
+    final String apiURL = "http://192.168.1.4/caffe_both_twenty/api/user";
     final response = await http.post(apiURL, body: {
       "uid": uid,
       "first_name": firstname,
@@ -181,7 +181,7 @@ class _InfoUserState extends State<InfoUser> {
                           TextField(
                             controller: _lastnameController,
                             decoration: InputDecoration(
-                              labelText: "Last Name",
+                              labelText: "Last Name (Optional)",
                               labelStyle: TextStyle(
                                   fontSize: 14,
                                   color: Colors.grey.shade400,
@@ -238,7 +238,7 @@ class _InfoUserState extends State<InfoUser> {
                           TextField(
                             controller: _addressController,
                             decoration: InputDecoration(
-                              labelText: "Address",
+                              labelText: "Address (Optional)",
                               labelStyle: TextStyle(
                                   fontSize: 14,
                                   color: Colors.grey.shade400,
@@ -264,9 +264,11 @@ class _InfoUserState extends State<InfoUser> {
                             onSaved: (String val) {
                               _numberphone = val;
                             },
+                            maxLength: 15,
                             controller: _numberphoneController,
                             keyboardType: TextInputType.number,
                             decoration: InputDecoration(
+                              counterStyle: TextStyle(color: Color(0xffe92b05)),
                               labelText: "Phone Number",
                               hintText: "8123456789",
                               labelStyle: TextStyle(
@@ -302,9 +304,11 @@ class _InfoUserState extends State<InfoUser> {
                             onSaved: (String val) {
                               _numberwhatsapp = val;
                             },
+                            maxLength: 15,
                             controller: _numberwhatsappController,
                             keyboardType: TextInputType.number,
                             decoration: InputDecoration(
+                              counterStyle: TextStyle(color: Color(0xffe92b05)),
                               labelText: "Whatsapp Number",
                               hintText: "8123456789",
                               labelStyle: TextStyle(

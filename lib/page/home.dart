@@ -1,3 +1,4 @@
+import 'package:caffe_both_twenty/models/fooditem.dart';
 import 'package:caffe_both_twenty/page/page_dashboard/cart.dart';
 import 'package:caffe_both_twenty/page/page_dashboard/dashboard.dart';
 import 'package:caffe_both_twenty/page/page_dashboard/menu.dart';
@@ -14,6 +15,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:bottom_navy_bar/bottom_navy_bar.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'page_dashboard/menu/provider.dart';
+import 'page_dashboard/menu/cartlistBloc.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -21,6 +23,7 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  final CartProvider _cartProvider = CartProvider();
   String uid, number;
   @override
   void dispose() {
@@ -34,6 +37,10 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
+      blocs: [
+        Bloc((i) => CartListBloc()),
+        Bloc((i) => CartProvider()),
+      ],
       child: Scaffold(
         body: WillPopScope(
           onWillPop: onWillPop,

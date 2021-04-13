@@ -1,6 +1,7 @@
 import 'package:caffe_both_twenty/const/themeColor.dart';
 import 'package:caffe_both_twenty/models/fooditem.dart';
 import 'package:caffe_both_twenty/page/page_dashboard/cart.dart';
+import 'package:caffe_both_twenty/page/page_dashboard/menu/provider.dart';
 import 'package:flutter/material.dart';
 import 'package:bloc_pattern/bloc_pattern.dart';
 import 'menu/listTileColorBloc.dart';
@@ -15,6 +16,7 @@ class Menu extends StatelessWidget {
       blocs: [
         Bloc((i) => CartListBloc()),
         Bloc((i) => ColorBloc()),
+        Bloc((i) => CartProvider()),
       ],
       child: MaterialApp(
         title: "Caffe Booth Twenty",

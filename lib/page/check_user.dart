@@ -42,7 +42,7 @@ class _CheckUserState extends State<CheckUser> {
   Future<CheckUser> getUser() async {
     final token = "0a66838fcbd880483b9af2c91c6cef9e";
     final url =
-        "http://192.168.1.7/caffe_both_twenty/api/user?uid=$uid&Token=$token";
+        "http://192.168.1.4/caffe_both_twenty/api/user?uid=$uid&Token=$token";
     final response = await http.get(url);
     if (response.statusCode == 200) {
       Navigator.push(context, MaterialPageRoute(builder: (context) => Home()));

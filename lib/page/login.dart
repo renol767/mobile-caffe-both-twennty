@@ -81,11 +81,13 @@ class _LoginScreenState extends State<LoginScreen> {
                             EdgeInsets.symmetric(vertical: 2, horizontal: 20),
                       ),
                       TextField(
+                        maxLength: 15,
                         style: TextStyle(
                             fontSize: 17,
                             fontWeight: FontWeight.w600,
                             color: Colors.black),
                         decoration: InputDecoration(
+                            counterStyle: TextStyle(color: Color(0xffe92b05)),
                             hintText: "Enter Number Phone",
                             border: InputBorder.none,
                             enabledBorder: OutlineInputBorder(
