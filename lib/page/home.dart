@@ -9,9 +9,11 @@ import 'login.dart';
 import '../models/user.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:bottom_navy_bar/bottom_navy_bar.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'page_dashboard/menu/provider.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -31,48 +33,50 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: WillPopScope(
-        onWillPop: onWillPop,
-        child: SizedBox.expand(
-          child: PageView(
-            controller: _pageController,
-            onPageChanged: (index) {
-              setState(() => _currentIndex = index);
-            },
-            children: <Widget>[
-              Dashboard(),
-              Menu(),
-              Cart(),
-              Profile(),
-            ],
+    return BlocProvider(
+      child: Scaffold(
+        body: WillPopScope(
+          onWillPop: onWillPop,
+          child: SizedBox.expand(
+            child: PageView(
+              controller: _pageController,
+              onPageChanged: (index) {
+                setState(() => _currentIndex = index);
+              },
+              children: <Widget>[
+                Dashboard(),
+                Menu(),
+                Cart(),
+                Profile(),
+              ],
+            ),
           ),
         ),
-      ),
-      bottomNavigationBar: BottomNavyBar(
-        selectedIndex: _currentIndex,
-        onItemSelected: (index) {
-          setState(() => _currentIndex = index);
-          _pageController.jumpToPage(index);
-        },
-        items: <BottomNavyBarItem>[
-          BottomNavyBarItem(
-              title: Text('Home'),
-              icon: Icon(Icons.home),
-              activeColor: Color(0xfffd6f19)),
-          BottomNavyBarItem(
-              title: Text('Menu'),
-              icon: FaIcon(FontAwesomeIcons.utensils, size: 17),
-              activeColor: Color(0xfffd6f19)),
-          BottomNavyBarItem(
-              title: Text('Cart'),
-              icon: FaIcon(FontAwesomeIcons.shoppingBasket, size: 17),
-              activeColor: Color(0xfffd6f19)),
-          BottomNavyBarItem(
-              title: Text('Others'),
-              icon: Icon(Icons.settings),
-              activeColor: Color(0xfffd6f19)),
-        ],
+        bottomNavigationBar: BottomNavyBar(
+          selectedIndex: _currentIndex,
+          onItemSelected: (index) {
+            setState(() => _currentIndex = index);
+            _pageController.jumpToPage(index);
+          },
+          items: <BottomNavyBarItem>[
+            BottomNavyBarItem(
+                title: Text('Home'),
+                icon: Icon(Icons.home),
+                activeColor: Color(0xfffd6f19)),
+            BottomNavyBarItem(
+                title: Text('Menu'),
+                icon: FaIcon(FontAwesomeIcons.utensils, size: 17),
+                activeColor: Color(0xfffd6f19)),
+            BottomNavyBarItem(
+                title: Text('Cart'),
+                icon: FaIcon(FontAwesomeIcons.shoppingBasket, size: 17),
+                activeColor: Color(0xfffd6f19)),
+            BottomNavyBarItem(
+                title: Text('Others'),
+                icon: Icon(Icons.settings),
+                activeColor: Color(0xfffd6f19)),
+          ],
+        ),
       ),
     );
   }
