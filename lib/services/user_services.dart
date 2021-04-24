@@ -7,7 +7,7 @@ class UserService {
     final token = "0a66838fcbd880483b9af2c91c6cef9e";
     return http
         .get(
-            "http://192.168.1.4/caffe_both_twenty/api/user?uid=$uid&Token=$token")
+            "http://192.168.1.17/caffe-booth-twenty/api/infodata?uid=$uid&Token=$token")
         .then((data) {
       if (data.statusCode == 200) {
         final jsonData = json.decode(data.body);

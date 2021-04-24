@@ -17,65 +17,66 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset: false,
-      body: WillPopScope(
-        onWillPop: onWillPop,
-        child: SingleChildScrollView(
-          padding: EdgeInsets.all(16.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
-              SizedBox(
-                height: 80,
-              ),
-              Center(
-                child: Text(
-                  "Welcome",
-                  style: TextStyle(
-                    fontSize: 40,
-                    fontWeight: FontWeight.w700,
-                  ),
-                ),
-              ),
-              Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Container(
-                      padding: EdgeInsets.all(30),
-                      child: Image.asset('images/homescreen.png',
-                          height: 300, width: 300)),
-                  Container(
-                    height: 50,
-                    width: MediaQuery.of(context).size.width * 0.8,
-                    decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                        colors: [Color(0xfffdaa19), Color(0xffe92b05)],
-                        stops: [0, 1],
+        resizeToAvoidBottomInset: false,
+        body: WillPopScope(
+            onWillPop: onWillPop,
+            child: SingleChildScrollView(
+              child: Center(
+                child: Container(
+                  margin: EdgeInsets.all(16.0),
+                  padding: EdgeInsets.only(left: 16, right: 16),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      SizedBox(
+                        height: 80,
                       ),
-                      borderRadius: BorderRadius.all(Radius.circular(15)),
-                    ),
-                    child: InkWell(
-                      onTap: _login,
-                      child: Center(
+                      Center(
                         child: Text(
-                          "Get Started",
+                          "Welcome",
                           style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.w600,
-                            fontSize: 15,
+                            fontSize: 40,
+                            fontWeight: FontWeight.w700,
                           ),
                         ),
                       ),
-                    ),
+                      Container(
+                          padding: EdgeInsets.all(30),
+                          child: Image.asset('images/homescreen.png',
+                              height: 400, width: 400)),
+                      SizedBox(
+                        height: 30,
+                      ),
+                      Container(
+                        height: 50,
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                          gradient: LinearGradient(
+                            colors: [Color(0xfffdaa19), Color(0xffe92b05)],
+                            stops: [0, 1],
+                          ),
+                          borderRadius: BorderRadius.all(Radius.circular(15)),
+                        ),
+                        child: InkWell(
+                          onTap: _login,
+                          child: Center(
+                            child: Text(
+                              "Get Started",
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.w600,
+                                fontSize: 15,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
-                ],
+                ),
               ),
-            ],
-          ),
-        ),
-      ),
-    );
+            )));
   }
 
   DateTime currentBackPressTime;
