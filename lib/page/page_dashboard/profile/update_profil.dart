@@ -81,7 +81,7 @@ class _UpdateProfileState extends State<UpdateProfile> {
       String numberphone,
       String numberwhatsapp,
       String Token) async {
-    final String apiURL = "http://192.168.1.17/caffe-booth-twenty/api/infodata";
+    final String apiURL = "http://192.168.1.10/caffe-booth-twenty/api/infodata";
     final response = await http.put(apiURL, body: {
       "uid": uid,
       "first_name": firstname,
