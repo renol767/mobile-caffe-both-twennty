@@ -34,7 +34,7 @@ class _ProfileState extends State<Profile> {
         child: Column(
           children: [
             SizedBox(
-              height: 60,
+              height: 70,
             ),
             Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,

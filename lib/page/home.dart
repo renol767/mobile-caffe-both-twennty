@@ -1,5 +1,4 @@
 import 'package:caffe_both_twenty/page/page_dashboard/cart.dart';
-import 'package:caffe_both_twenty/page/page_dashboard/dashboard.dart';
 import 'package:caffe_both_twenty/page/page_dashboard/menu.dart';
 import 'package:caffe_both_twenty/page/page_dashboard/profile.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -41,7 +40,6 @@ class _HomeState extends State<Home> {
               setState(() => _currentIndex = index);
             },
             children: <Widget>[
-              Dashboard(),
               Menu(),
               Cart(),
               Profile(),
@@ -56,10 +54,6 @@ class _HomeState extends State<Home> {
           _pageController.jumpToPage(index);
         },
         items: <BottomNavyBarItem>[
-          BottomNavyBarItem(
-              title: Text('Home'),
-              icon: Icon(Icons.home),
-              activeColor: Color(0xfffd6f19)),
           BottomNavyBarItem(
               title: Text('Menu'),
               icon: FaIcon(FontAwesomeIcons.utensils, size: 17),
