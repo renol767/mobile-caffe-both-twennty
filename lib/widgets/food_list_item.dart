@@ -33,6 +33,9 @@ class FoodListItem extends StatelessWidget {
                 maxLines: 1,
                 overflow: TextOverflow.clip,
               ),
+              SizedBox(
+                height: 8,
+              ),
               Text(
                 NumberFormat.currency(
                         symbol: "IDR ", decimalDigits: 0, locale: "id-ID")

@@ -1,7 +1,9 @@
 import 'dart:async';
+import 'package:caffe_both_twenty/models/pelanggan.dart';
 import 'package:caffe_both_twenty/models/transaction.dart';
 import 'package:caffe_both_twenty/models/food_model.dart';
 import 'package:caffe_both_twenty/page/page_dashboard/menu/food_detail_page.dart';
+import 'package:caffe_both_twenty/page/page_dashboard/menu/payment_page.dart';
 import 'package:caffe_both_twenty/services/user_services.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -30,8 +32,6 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return FoodDetailPage(
-      transaction: Transaction(food: mockFoods[1]),
-    );
+    return SplashScreen();
   }
 }

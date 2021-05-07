@@ -2,7 +2,7 @@ import 'package:caffe_both_twenty/models/pelanggan.dart';
 import 'package:equatable/equatable.dart';
 import 'food_model.dart';
 
-enum TransactionStatus { belumbayar, sudahdibayar }
+enum TransactionStatus { belumbayar, sudahdibayar, cancelled }
 
 class Transaction extends Equatable {
   final int id;
@@ -55,10 +55,18 @@ List<Transaction> mockTransactions = [
       user: mockUser),
   Transaction(
       id: 1,
-      food: mockFoods[1],
+      food: mockFoods[2],
       quantity: 10,
       total: (mockFoods[2].price * 10).round(),
       dateTime: DateTime.now(),
       status: TransactionStatus.sudahdibayar,
+      user: mockUser),
+  Transaction(
+      id: 1,
+      food: mockFoods[3],
+      quantity: 10,
+      total: (mockFoods[3].price * 10).round(),
+      dateTime: DateTime.now(),
+      status: TransactionStatus.cancelled,
       user: mockUser),
 ];

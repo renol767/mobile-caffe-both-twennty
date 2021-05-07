@@ -1,4 +1,4 @@
-import 'package:caffe_both_twenty/page/page_dashboard/cart.dart';
+import 'package:caffe_both_twenty/page/page_dashboard/order.dart';
 import 'package:caffe_both_twenty/page/page_dashboard/menu.dart';
 import 'package:caffe_both_twenty/page/page_dashboard/profile.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -41,7 +41,7 @@ class _HomeState extends State<Home> {
             },
             children: <Widget>[
               Menu(),
-              Cart(),
+              Order(),
               Profile(),
             ],
           ),
@@ -59,7 +59,7 @@ class _HomeState extends State<Home> {
               icon: FaIcon(FontAwesomeIcons.utensils, size: 17),
               activeColor: Color(0xfffd6f19)),
           BottomNavyBarItem(
-              title: Text('Cart'),
+              title: Text('Order'),
               icon: FaIcon(FontAwesomeIcons.shoppingBasket, size: 17),
               activeColor: Color(0xfffd6f19)),
           BottomNavyBarItem(
