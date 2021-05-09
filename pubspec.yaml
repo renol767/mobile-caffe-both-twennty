@@ -45,6 +45,7 @@ dependencies:
   supercharged: ^2.0.0
   intl: ^0.16.1
   equatable: ^2.0.0
+  flutter_bloc: ^6.0.1
 
 dev_dependencies:
   flutter_test:
