@@ -1,11 +1,27 @@
+import 'package:caffe_both_twenty/models/fetchuser.dart';
 import 'package:caffe_both_twenty/models/transaction.dart';
+import 'package:caffe_both_twenty/services/user_services.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 import 'package:intl/intl.dart';
 
 class PaymentPage extends StatelessWidget {
   final Transaction transaction;
+  UserService get usersService => GetIt.I<UserService>();
+  FetchUser users;
 
   PaymentPage({this.transaction});
+
+  @override
+  void initState() {
+    usersService
+        .getFetchuser(FirebaseAuth.instance.currentUser.uid)
+        .then((value) {
+      users = value;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -256,9 +272,7 @@ class PaymentPage extends StatelessWidget {
                                         80 -
                                         64,
                                     child: Text(
-                                      transaction.user.firstName +
-                                          ' ' +
-                                          transaction.user.lastName,
+                                      users.firstName + ' ' + users.lastName,
                                       style: TextStyle(
                                           fontSize: 15,
                                           color: Colors.grey.shade700,
@@ -282,7 +296,7 @@ class PaymentPage extends StatelessWidget {
                                   ),
                                 ),
                                 Text(
-                                  transaction.user.address,
+                                  users.address,
                                   style: TextStyle(
                                       fontSize: 15,
                                       color: Colors.grey.shade700,
@@ -306,7 +320,7 @@ class PaymentPage extends StatelessWidget {
                                   ),
                                 ),
                                 Text(
-                                  transaction.user.numberwhatsapp,
+                                  users.numberwhatsapp,
                                   style: TextStyle(
                                       fontSize: 15,
                                       color: Colors.grey.shade700,

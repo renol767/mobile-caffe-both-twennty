@@ -1,9 +1,12 @@
+import 'package:caffe_both_twenty/cubit/food_cubit.dart';
+import 'package:caffe_both_twenty/cubit/transaction_cubit.dart';
 import 'package:caffe_both_twenty/page/page_dashboard/order.dart';
 import 'package:caffe_both_twenty/page/page_dashboard/menu.dart';
 import 'package:caffe_both_twenty/page/page_dashboard/profile.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'login.dart';
 import '../models/user.dart';
 import 'package:http/http.dart' as http;
@@ -30,43 +33,49 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: WillPopScope(
-        onWillPop: onWillPop,
-        child: SizedBox.expand(
-          child: PageView(
-            controller: _pageController,
-            onPageChanged: (index) {
-              setState(() => _currentIndex = index);
-            },
-            children: <Widget>[
-              Menu(),
-              Order(),
-              Profile(),
-            ],
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (_) => FoodCubit()),
+        BlocProvider(create: (_) => TransactionCubit())
+      ],
+      child: Scaffold(
+        body: WillPopScope(
+          onWillPop: onWillPop,
+          child: SizedBox.expand(
+            child: PageView(
+              controller: _pageController,
+              onPageChanged: (index) {
+                setState(() => _currentIndex = index);
+              },
+              children: <Widget>[
+                Menu(),
+                Order(),
+                Profile(),
+              ],
+            ),
           ),
         ),
-      ),
-      bottomNavigationBar: BottomNavyBar(
-        selectedIndex: _currentIndex,
-        onItemSelected: (index) {
-          setState(() => _currentIndex = index);
-          _pageController.jumpToPage(index);
-        },
-        items: <BottomNavyBarItem>[
-          BottomNavyBarItem(
-              title: Text('Menu'),
-              icon: FaIcon(FontAwesomeIcons.utensils, size: 17),
-              activeColor: Color(0xfffd6f19)),
-          BottomNavyBarItem(
-              title: Text('Order'),
-              icon: FaIcon(FontAwesomeIcons.shoppingBasket, size: 17),
-              activeColor: Color(0xfffd6f19)),
-          BottomNavyBarItem(
-              title: Text('Others'),
-              icon: Icon(Icons.settings),
-              activeColor: Color(0xfffd6f19)),
-        ],
+        bottomNavigationBar: BottomNavyBar(
+          selectedIndex: _currentIndex,
+          onItemSelected: (index) {
+            setState(() => _currentIndex = index);
+            _pageController.jumpToPage(index);
+          },
+          items: <BottomNavyBarItem>[
+            BottomNavyBarItem(
+                title: Text('Menu'),
+                icon: FaIcon(FontAwesomeIcons.utensils, size: 17),
+                activeColor: Color(0xfffd6f19)),
+            BottomNavyBarItem(
+                title: Text('Order'),
+                icon: FaIcon(FontAwesomeIcons.shoppingBasket, size: 17),
+                activeColor: Color(0xfffd6f19)),
+            BottomNavyBarItem(
+                title: Text('Others'),
+                icon: Icon(Icons.settings),
+                activeColor: Color(0xfffd6f19)),
+          ],
+        ),
       ),
     );
   }

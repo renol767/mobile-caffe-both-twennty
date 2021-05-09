@@ -4,6 +4,7 @@ import 'package:caffe_both_twenty/page/info_login.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 import '../models/user.dart';
 
@@ -21,9 +22,7 @@ class _CheckUserState extends State<CheckUser> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              CircularProgressIndicator(
-                strokeWidth: 2,
-              ),
+              SpinKitFadingCube(color: Color(0xfffd6f19)),
               Text("Check User Data...")
             ],
           ),

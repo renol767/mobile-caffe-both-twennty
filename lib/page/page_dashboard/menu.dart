@@ -1,9 +1,15 @@
+import 'package:caffe_both_twenty/cubit/cubit.dart';
+import 'package:caffe_both_twenty/models/transaction.dart';
+import 'package:caffe_both_twenty/page/page_dashboard/menu/food_detail_page.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get/get.dart';
 import 'package:caffe_both_twenty/models/food_model.dart';
 import 'package:caffe_both_twenty/widgets/custom_tabbar.dart';
 import 'package:caffe_both_twenty/widgets/food_card.dart';
 import 'package:caffe_both_twenty/widgets/food_list_item.dart';
 import 'package:caffe_both_twenty/widgets/rating_stars.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 class Menu extends StatefulWidget {
   @override
@@ -46,20 +52,36 @@ class _MenuState extends State<Menu> {
         Container(
           height: 230,
           width: double.infinity,
-          child: ListView(
-            scrollDirection: Axis.horizontal,
-            children: [
-              Row(
-                children: mockFoods
-                    .map((e) => Padding(
-                          padding: EdgeInsets.only(
-                              left: (e == mockFoods.first) ? 16 : 0, right: 16),
-                          child: FoodCard(e),
-                        ))
-                    .toList(),
-              )
-            ],
-          ),
+          child: BlocBuilder<FoodCubit, FoodState>(
+              builder: (_, state) => (state is FoodLoaded)
+                  ? ListView(
+                      scrollDirection: Axis.horizontal,
+                      children: [
+                        Row(
+                          children: state.foods
+                              .map((e) => Padding(
+                                    padding: EdgeInsets.only(
+                                        left: (e == mockFoods.first) ? 16 : 0,
+                                        right: 16),
+                                    child: GestureDetector(
+                                        onTap: () {
+                                          Get.to(FoodDetailPage(
+                                            transaction: Transaction(food: e),
+                                            onBackButtonPressed: () {
+                                              Get.back();
+                                            },
+                                          ));
+                                        },
+                                        child: FoodCard(e)),
+                                  ))
+                              .toList(),
+                        )
+                      ],
+                    )
+                  : SpinKitFadingCube(
+                      color: Color(0xfffd6f19),
+                      size: 30,
+                    )),
         ),
         //// List Food By TABS
         Container(
@@ -77,21 +99,31 @@ class _MenuState extends State<Menu> {
                 },
               ),
               SizedBox(height: 10),
-              Builder(builder: (_) {
-                List<Food> foods = (selectedIndex == 0)
-                    ? mockFoods
-                    : (selectedIndex == 1)
-                        ? []
-                        : [];
-                return Column(
-                  children: foods
-                      .map((e) => Padding(
-                          padding: EdgeInsets.only(
-                              left: 16, right: 8, top: 8, bottom: 8),
-                          child:
-                              FoodListItem(food: e, itemWidth: listItemWidth)))
-                      .toList(),
-                );
+              BlocBuilder<FoodCubit, FoodState>(builder: (_, state) {
+                if (state is FoodLoaded) {
+                  List<Food> foods = state.foods
+                      .where((element) =>
+                          element.types.contains((selectedIndex == 0)
+                              ? FoodType.new_food
+                              : (selectedIndex == 1)
+                                  ? FoodType.popular
+                                  : FoodType.recommended))
+                      .toList();
+                  return Column(
+                    children: foods
+                        .map((e) => Padding(
+                            padding: EdgeInsets.only(
+                                left: 16, right: 8, top: 8, bottom: 8),
+                            child: FoodListItem(
+                                food: e, itemWidth: listItemWidth)))
+                        .toList(),
+                  );
+                } else {
+                  return SpinKitFadingCube(
+                    color: Color(0xfffd6f19),
+                    size: 30,
+                  );
+                }
               }),
             ],
           ),
