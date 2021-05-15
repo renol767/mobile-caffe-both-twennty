@@ -13,6 +13,14 @@ class Order extends StatefulWidget {
 }
 
 class _OrderState extends State<Order> {
+  @override
+  void initState() {
+    super.initState();
+
+    context.bloc<TransactionCubit>().getTransactions();
+    context.bloc<FoodCubit>().getFoods();
+  }
+
   int selectedIndex = 0;
   @override
   Widget build(BuildContext context) {
@@ -65,12 +73,12 @@ class _OrderState extends State<Order> {
                       ),
                       Builder(builder: (_) {
                         List<Transaction> transaction = (selectedIndex == 0)
-                            ? state.transactions
+                            ? state.transaction
                                 .where((element) =>
                                     element.status ==
                                     TransactionStatus.belumbayar)
                                 .toList()
-                            : state.transactions
+                            : state.transaction
                                 .where((element) =>
                                     element.status ==
                                         TransactionStatus.sudahdibayar ||

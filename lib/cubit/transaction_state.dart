@@ -10,12 +10,12 @@ abstract class TransactionState extends Equatable {
 class TransactionInitial extends TransactionState {}
 
 class TransactionLoaded extends TransactionState {
-  final List<Transaction> transactions;
+  final List<Transaction> transaction;
 
-  TransactionLoaded(this.transactions);
+  TransactionLoaded(this.transaction);
 
   @override
-  List<Object> get props => [transactions];
+  List<Object> get props => [transaction];
 }
 
 class TransactionLoadingFailed extends TransactionState {

@@ -17,6 +17,13 @@ class Menu extends StatefulWidget {
 }
 
 class _MenuState extends State<Menu> {
+  @override
+  void initState() {
+    super.initState();
+    context.bloc<TransactionCubit>().getTransactions();
+    context.bloc<FoodCubit>().getFoods();
+  }
+
   int selectedIndex = 0;
   @override
   Widget build(BuildContext context) {
