@@ -22,9 +22,10 @@ class _MenuState extends State<Menu> {
     super.initState();
     context.bloc<TransactionCubit>().getTransactions();
     context.bloc<FoodCubit>().getFoods();
+    FoodState state = context.bloc<FoodCubit>().state;
   }
 
-  int selectedIndex = 0;
+  int selectedIndex = null;
   @override
   Widget build(BuildContext context) {
     double listItemWidth = MediaQuery.of(context).size.width - 2 * 16;
