@@ -1,18 +1,34 @@
+import 'package:caffe_both_twenty/cubit/cubit.dart';
 import 'package:caffe_both_twenty/models/fetchuser.dart';
 import 'package:caffe_both_twenty/models/transaction.dart';
+import 'package:caffe_both_twenty/page/page_dashboard/order.dart';
 import 'package:caffe_both_twenty/services/user_services.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get_it/get_it.dart';
 import 'package:intl/intl.dart';
+import 'package:get/get.dart';
+import 'food_detail_page.dart';
 
-class PaymentPage extends StatelessWidget {
+class PaymentPage extends StatefulWidget {
   final Transaction transaction;
-  UserService get usersService => GetIt.I<UserService>();
-  FetchUser users;
 
   PaymentPage({this.transaction});
+
+  @override
+  _PaymentPageState createState() => _PaymentPageState();
+}
+
+class _PaymentPageState extends State<PaymentPage> {
+  bool isLoading = false;
+
+  UserService get usersService => GetIt.I<UserService>();
+
+  FetchUser users;
 
   @override
   void initState() {
@@ -101,8 +117,10 @@ class PaymentPage extends StatelessWidget {
                                           borderRadius:
                                               BorderRadius.circular(8),
                                           image: DecorationImage(
-                                              image: NetworkImage(
-                                                  transaction.food.picturePath),
+                                              image: NetworkImage(widget
+                                                  .transaction
+                                                  .food
+                                                  .picturePath),
                                               fit: BoxFit.cover)),
                                     ),
                                     Column(
@@ -118,7 +136,7 @@ class PaymentPage extends StatelessWidget {
                                               12 -
                                               78,
                                           child: Text(
-                                            transaction.food.name,
+                                            widget.transaction.food.name,
                                             style: TextStyle(
                                                 fontSize: 16,
                                                 color: Color(0xfffd6f19),
@@ -136,7 +154,7 @@ class PaymentPage extends StatelessWidget {
                                                   symbol: 'IDR ',
                                                   decimalDigits: 0)
                                               .format(
-                                            transaction.food.price,
+                                            widget.transaction.food.price,
                                           ),
                                           style: TextStyle(
                                               fontSize: 13,
@@ -147,7 +165,7 @@ class PaymentPage extends StatelessWidget {
                                   ],
                                 ),
                                 Text(
-                                  '${transaction.quantity} items',
+                                  '${widget.transaction.quantity} items',
                                   style: TextStyle(
                                       fontSize: 13, color: Colors.grey),
                                 )
@@ -172,7 +190,7 @@ class PaymentPage extends StatelessWidget {
                                       16 -
                                       5,
                                   child: Text(
-                                    transaction.food.name,
+                                    widget.transaction.food.name,
                                     style: TextStyle(
                                         fontSize: 13,
                                         color: Colors.grey.shade700),
@@ -187,7 +205,7 @@ class PaymentPage extends StatelessWidget {
                                             locale: 'id-ID',
                                             symbol: 'IDR ',
                                             decimalDigits: 0)
-                                        .format(transaction.total),
+                                        .format(widget.transaction.total),
                                     style: TextStyle(
                                         fontSize: 13, color: Colors.black),
                                     textAlign: TextAlign.right,
@@ -223,8 +241,7 @@ class PaymentPage extends StatelessWidget {
                                             locale: 'id-ID',
                                             symbol: 'IDR ',
                                             decimalDigits: 0)
-                                        .format(transaction.quantity *
-                                            transaction.food.price),
+                                        .format(widget.transaction.total),
                                     style: TextStyle(
                                         fontSize: 15,
                                         color: Color(0xfffd6f19),
@@ -272,7 +289,7 @@ class PaymentPage extends StatelessWidget {
                                         80 -
                                         64,
                                     child: Text(
-                                      users.firstName + ' ' + users.lastName,
+                                      "users.firstName + ' ' + users.lastName",
                                       style: TextStyle(
                                           fontSize: 15,
                                           color: Colors.grey.shade700,
@@ -296,7 +313,7 @@ class PaymentPage extends StatelessWidget {
                                   ),
                                 ),
                                 Text(
-                                  users.address,
+                                  "users.address",
                                   style: TextStyle(
                                       fontSize: 15,
                                       color: Colors.grey.shade700,
@@ -320,7 +337,7 @@ class PaymentPage extends StatelessWidget {
                                   ),
                                 ),
                                 Text(
-                                  users.numberwhatsapp,
+                                  "users.numberwhatsapp",
                                   style: TextStyle(
                                       fontSize: 15,
                                       color: Colors.grey.shade700,
@@ -335,34 +352,61 @@ class PaymentPage extends StatelessWidget {
                       SizedBox(
                         height: 30,
                       ),
-                      Container(
-                        height: 50,
-                        child: FlatButton(
-                          onPressed: () {},
-                          padding: EdgeInsets.all(0),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(6),
-                          ),
-                          child: Ink(
-                            decoration: BoxDecoration(
+                      (isLoading)
+                          ? SpinKitFadingCube(
                               color: Color(0xfffd6f19),
-                              borderRadius: BorderRadius.circular(6),
-                            ),
-                            child: Container(
-                              alignment: Alignment.center,
-                              constraints: BoxConstraints(
-                                  minHeight: 50, maxWidth: double.infinity),
-                              child: Text(
-                                "Checkout Now",
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.white),
-                                textAlign: TextAlign.center,
+                              size: 30,
+                            )
+                          : Container(
+                              height: 50,
+                              child: RaisedButton(
+                                onPressed: () async {
+                                  setState(() {
+                                    isLoading = true;
+                                  });
+                                  bool result = await context
+                                      .bloc<TransactionCubit>()
+                                      .submitTransaction(widget.transaction
+                                          .copyWith(
+                                              dateTime: DateTime.now(),
+                                              total: widget.transaction.total
+                                                  .toInt()));
+
+                                  if (result == true) {
+                                    Get.to(() => Order());
+                                  } else {
+                                    setState(() {
+                                      isLoading = false;
+                                    });
+                                    Fluttertoast.showToast(
+                                        msg: "Transaction Failed");
+                                  }
+                                },
+                                padding: EdgeInsets.all(0),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(6),
+                                ),
+                                child: Ink(
+                                  decoration: BoxDecoration(
+                                    color: Color(0xfffd6f19),
+                                    borderRadius: BorderRadius.circular(6),
+                                  ),
+                                  child: Container(
+                                    alignment: Alignment.center,
+                                    constraints: BoxConstraints(
+                                        minHeight: 50,
+                                        maxWidth: double.infinity),
+                                    child: Text(
+                                      "Checkout Now",
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.white),
+                                      textAlign: TextAlign.center,
+                                    ),
+                                  ),
+                                ),
                               ),
                             ),
-                          ),
-                        ),
-                      ),
                     ]))));
   }
 }

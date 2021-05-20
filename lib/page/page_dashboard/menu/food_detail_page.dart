@@ -1,8 +1,14 @@
 import 'dart:math';
 
+import 'package:caffe_both_twenty/cubit/cubit.dart';
+import 'package:caffe_both_twenty/cubit/transaction_cubit.dart';
+import 'package:caffe_both_twenty/models/food_model.dart';
 import 'package:caffe_both_twenty/models/transaction.dart';
+import 'package:caffe_both_twenty/page/page_dashboard/menu/payment_page.dart';
 import 'package:caffe_both_twenty/widgets/rating_stars.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
 class FoodDetailPage extends StatefulWidget {
@@ -16,6 +22,11 @@ class FoodDetailPage extends StatefulWidget {
 }
 
 class _FoodDetailPageState extends State<FoodDetailPage> {
+  @override
+  void initState() {
+    super.initState();
+  }
+
   int quantity = 1;
   @override
   Widget build(BuildContext context) {
@@ -208,7 +219,15 @@ class _FoodDetailPageState extends State<FoodDetailPage> {
                               width: 163,
                               height: 45,
                               child: RaisedButton(
-                                onPressed: () {},
+                                onPressed: () {
+                                  Get.to(() => PaymentPage(
+                                          transaction: Transaction(
+                                        food: widget.transaction.food,
+                                        quantity: quantity,
+                                        total: quantity *
+                                            widget.transaction.food.price,
+                                      )));
+                                },
                                 color: Color(0xfffd6f19),
                                 elevation: 0,
                                 shape: RoundedRectangleBorder(

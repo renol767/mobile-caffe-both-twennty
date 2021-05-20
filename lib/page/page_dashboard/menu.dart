@@ -25,7 +25,6 @@ class _MenuState extends State<Menu> {
     FoodState state = context.bloc<FoodCubit>().state;
   }
 
-  int selectedIndex = null;
   @override
   Widget build(BuildContext context) {
     double listItemWidth = MediaQuery.of(context).size.width - 2 * 16;
@@ -97,33 +96,52 @@ class _MenuState extends State<Menu> {
           color: Colors.white,
           child: Column(
             children: [
-              CustomTabbar(
-                selectedIndex: selectedIndex,
-                titles: ['Baru', 'Popular', 'Recommended'],
-                onTap: (index) {
-                  setState(() {
-                    selectedIndex = index;
-                  });
-                },
+              SizedBox(
+                height: 20,
+              ),
+              Container(
+                padding: EdgeInsets.all(16.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Text(
+                      "List Food",
+                      style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                          color: Color(0xfffd6f19)),
+                    )
+                  ],
+                ),
               ),
               SizedBox(height: 10),
               BlocBuilder<FoodCubit, FoodState>(builder: (_, state) {
                 if (state is FoodLoaded) {
-                  List<Food> foods = state.foods
-                      .where((element) =>
-                          element.types.contains((selectedIndex == 0)
-                              ? FoodType.new_food
-                              : (selectedIndex == 1)
-                                  ? FoodType.popular
-                                  : FoodType.recommended))
-                      .toList();
+                  // List<Food> foods = state.foods
+                  //     .where((element) =>
+                  //         element.types.contains((selectedIndex == 0)
+                  //             ? FoodType.new_food
+                  //             : (selectedIndex == 1)
+                  //                 ? FoodType.popular
+                  //                 : FoodType.recommended))
+                  //     .toList();
                   return Column(
-                    children: foods
+                    children: state.foods
                         .map((e) => Padding(
                             padding: EdgeInsets.only(
                                 left: 16, right: 8, top: 8, bottom: 8),
-                            child: FoodListItem(
-                                food: e, itemWidth: listItemWidth)))
+                            child: GestureDetector(
+                              onTap: () {
+                                Get.to(FoodDetailPage(
+                                  transaction: Transaction(food: e),
+                                  onBackButtonPressed: () {
+                                    Get.back();
+                                  },
+                                ));
+                              },
+                              child: FoodListItem(
+                                  food: e, itemWidth: listItemWidth),
+                            )))
                         .toList(),
                   );
                 } else {

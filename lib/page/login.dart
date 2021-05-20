@@ -140,7 +140,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               constraints: BoxConstraints(
                                   maxWidth: double.infinity, minHeight: 50),
                               child: Text(
-                                "Login",
+                                "Daftar/Login",
                                 style: TextStyle(
                                     color: Colors.white,
                                     fontWeight: FontWeight.bold),

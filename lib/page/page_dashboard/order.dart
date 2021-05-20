@@ -16,7 +16,6 @@ class _OrderState extends State<Order> {
   @override
   void initState() {
     super.initState();
-
     context.bloc<TransactionCubit>().getTransactions();
     context.bloc<FoodCubit>().getFoods();
   }
