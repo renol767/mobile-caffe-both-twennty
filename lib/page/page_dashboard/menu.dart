@@ -68,7 +68,7 @@ class _MenuState extends State<Menu> {
                           children: state.foods
                               .map((e) => Padding(
                                     padding: EdgeInsets.only(
-                                        left: (e == mockFoods.first) ? 16 : 0,
+                                        left: (e == state.foods.first) ? 16 : 0,
                                         right: 16),
                                     child: GestureDetector(
                                         onTap: () {

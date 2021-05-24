@@ -1,13 +1,13 @@
 import 'package:equatable/equatable.dart';
 
 class Food extends Equatable {
-  final int id;
+  final dynamic id;
   final String picturePath;
   final String name;
   final String description;
   final String ingredients;
-  final int price;
-  final double rate;
+  final dynamic price;
+  final dynamic rate;
 
   Food({
     this.id,
@@ -18,6 +18,17 @@ class Food extends Equatable {
     this.price,
     this.rate,
   });
+
+  factory Food.fromJson(Map<String, dynamic> jsonData) => Food(
+        id: jsonData['id'],
+        name: jsonData["name"],
+        description: jsonData["description"],
+        ingredients: jsonData["ingredients"],
+        price: int.parse(jsonData["price"]),
+        rate: double.parse(jsonData["rate"]),
+        picturePath: jsonData["picturePath"],
+      );
+
   @override
   List<Object> get props =>
       [id, picturePath, name, description, ingredients, price, rate];
@@ -27,10 +38,10 @@ List<Food> mockFoods = [
   Food(
     id: 1,
     picturePath:
-        "https://i.pinimg.com/736x/06/7b/28/067b2879e5c9c42ec669bf639c3fbffc.jpg",
-    name: "Sate Sayur Sultan",
+        "https://www.masakapahariini.com/wp-content/uploads/2019/01/nasi-goreng-jawa-500x300.jpg",
+    name: "Nasi Goreng",
     description:
-        "Sate Sayur Sultan adalah menu sate vegan paling terkenal di Bandung. Sate ini dibuat dari berbagai macam bahan bermutu tinggi. Semua bahan ditanam dengan menggunakan teknologi masa kini sehingga memiliki nutrisi yang kaya.",
+        "Lorem ipsum, atau ringkasnya lipsum, adalah teks standar yang ditempatkan untuk mendemostrasikan elemen grafis atau presentasi visual seperti font, tipografi, dan tata letak.",
     ingredients: "Bawang Merah, Paprika, Bawang Bombay, Timun",
     price: 150000,
     rate: 4.2,
@@ -38,10 +49,10 @@ List<Food> mockFoods = [
   Food(
       id: 2,
       picturePath:
-          "https://cdns.klimg.com/dream.co.id/resources/news/2020/04/06/133546/bikin-steak-di-rumah-pastikan-bumbunya-meresap-2004066.jpg",
-      name: "Steak Daging Sapi Korea",
+          "https://www.rukita.co/stories/wp-content/uploads/2020/02/byurger.jpg",
+      name: "Burger",
       description:
-          "Daging sapi Korea adalah jenis sapi paling premium di Korea. Namun, untuk menikmatinya Anda tidak perlu jauh-jauh ke Korea Selatan. Steak Sapi Korea Oppa Bandung ini sudah terkenal di seluruh Indonesia dan sudah memiliki lebih dari 2 juta cabang.",
+          "Lorem ipsum, atau ringkasnya lipsum, adalah teks standar yang ditempatkan untuk mendemostrasikan elemen grafis atau presentasi visual seperti font, tipografi, dan tata letak.",
       ingredients: "Daging Sapi Korea, Garam, Lada Hitam",
       price: 750000,
       rate: 4.5),
@@ -51,7 +62,7 @@ List<Food> mockFoods = [
           "https://i1.wp.com/varminz.com/wp-content/uploads/2019/12/mexican-chopped-salad3.jpg?fit=843%2C843&ssl=1",
       name: "Mexican Chopped Salad",
       description:
-          "Salad ala mexico yang kaya akan serat dan vitamin. Seluruh bahan diambil dari Mexico sehingga akan memiliki cita rasa yang original.",
+          "Lorem ipsum, atau ringkasnya lipsum, adalah teks standar yang ditempatkan untuk mendemostrasikan elemen grafis atau presentasi visual seperti font, tipografi, dan tata letak.",
       ingredients: "Jagung, Selada, Tomat Ceri, Keju, Wortel",
       price: 105900,
       rate: 3.9),
@@ -71,7 +82,7 @@ List<Food> mockFoods = [
           "https://cmxpv89733.i.lithium.com/t5/image/serverpage/image-id/478345i84598AB4FEB454CB/image-size/large?v=1.0&px=999",
       name: "Korean Raw Beef Tartare",
       description:
-          "Daging sapi Korea cincang yang disajikan mentah dan disiram saus spesial dengan toping kuning telur dan taburan biji wijen.",
+          "Lorem ipsum, atau ringkasnya lipsum, adalah teks standar yang ditempatkan untuk mendemostrasikan elemen grafis atau presentasi visual seperti font, tipografi, dan tata letak.",
       ingredients: "Daging Sapi Korea, Telur, Biji Wijen",
       price: 350000,
       rate: 3.4)
