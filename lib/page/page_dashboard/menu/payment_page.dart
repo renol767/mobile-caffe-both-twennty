@@ -1,6 +1,8 @@
 import 'package:caffe_both_twenty/cubit/cubit.dart';
 import 'package:caffe_both_twenty/models/fetchuser.dart';
+import 'package:caffe_both_twenty/models/sendtransaction.dart';
 import 'package:caffe_both_twenty/models/transaction.dart';
+import 'package:caffe_both_twenty/page/home.dart';
 import 'package:caffe_both_twenty/page/page_dashboard/order.dart';
 import 'package:caffe_both_twenty/services/user_services.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -13,6 +15,8 @@ import 'package:get_it/get_it.dart';
 import 'package:intl/intl.dart';
 import 'package:get/get.dart';
 import 'food_detail_page.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 class PaymentPage extends StatefulWidget {
   final Transaction transaction;
@@ -30,6 +34,37 @@ class _PaymentPageState extends State<PaymentPage> {
 
   FetchUser users;
 
+  final _token = "0a66838fcbd880483b9af2c91c6cef9e";
+  String _uid;
+
+  Future<SendTransaction> createTransaction(
+      String id,
+      String uid,
+      String foodId,
+      String quantity,
+      String total,
+      String status,
+      String Token) async {
+    final String apiURL =
+        "http://192.168.1.11/caffe-booth-twenty/api/transaction?Token=$_token";
+    final response = await http.post(apiURL, body: {
+      'id': id,
+      'uid': uid,
+      'food_id': foodId,
+      'quantity': quantity,
+      'total': total,
+      'status': status,
+      "Token": Token
+    });
+    if (response.statusCode == 200) {
+      var responseString = json.decode(response.body);
+
+      return SendTransaction.fromJson(responseString);
+    } else {
+      return null;
+    }
+  }
+
   @override
   void initState() {
     usersService
@@ -37,6 +72,7 @@ class _PaymentPageState extends State<PaymentPage> {
         .then((value) {
       users = value;
     });
+    _uid = FirebaseAuth.instance.currentUser.uid;
   }
 
   @override
@@ -112,7 +148,6 @@ class _PaymentPageState extends State<PaymentPage> {
                                     Container(
                                       width: 60,
                                       height: 60,
-                                      margin: EdgeInsets.only(right: 12),
                                       decoration: BoxDecoration(
                                           borderRadius:
                                               BorderRadius.circular(8),
@@ -289,7 +324,7 @@ class _PaymentPageState extends State<PaymentPage> {
                                         80 -
                                         64,
                                     child: Text(
-                                      "users.firstName + ' ' + users.lastName",
+                                      "Renol Nindi Kara",
                                       style: TextStyle(
                                           fontSize: 15,
                                           color: Colors.grey.shade700,
@@ -313,7 +348,7 @@ class _PaymentPageState extends State<PaymentPage> {
                                   ),
                                 ),
                                 Text(
-                                  'users.address',
+                                  'Majalengka',
                                   style: TextStyle(
                                       fontSize: 15,
                                       color: Colors.grey.shade700,
@@ -337,7 +372,7 @@ class _PaymentPageState extends State<PaymentPage> {
                                   ),
                                 ),
                                 Text(
-                                  "users.numberwhatsapp",
+                                  "+62123456789",
                                   style: TextStyle(
                                       fontSize: 15,
                                       color: Colors.grey.shade700,
@@ -361,26 +396,48 @@ class _PaymentPageState extends State<PaymentPage> {
                               height: 50,
                               child: RaisedButton(
                                 onPressed: () async {
-                                  setState(() {
-                                    isLoading = true;
-                                  });
-                                  bool result = await context
-                                      .bloc<TransactionCubit>()
-                                      .submitTransaction(widget.transaction
-                                          .copyWith(
-                                              dateTime: DateTime.now(),
-                                              total: widget.transaction.total
-                                                  .toInt()));
+                                  final SendTransaction transaction =
+                                      await createTransaction(
+                                          " ",
+                                          _uid,
+                                          widget.transaction.food.id.toString(),
+                                          widget.transaction.quantity
+                                              .toString(),
+                                          widget.transaction.total.toString(),
+                                          "Belum Bayar",
+                                          _token);
+                                  // await createTransaction(
+                                  //     "",
+                                  //     _uid,
+                                  //     widget.transaction.food.id,
+                                  //     widget.transaction.quantity
+                                  //         .toString(),
+                                  //     widget.transaction.total.toString(),
+                                  //     "Belum Bayar");
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => Home()));
+                                  // setState(() {
+                                  //   isLoading = true;
+                                  // });
+                                  // bool result = await context
+                                  //     .bloc<TransactionCubit>()
+                                  //     .submitTransaction(widget.transaction
+                                  //         .copyWith(
+                                  //             dateTime: DateTime.now(),
+                                  //             total: widget.transaction.total
+                                  //                 .toInt()));
 
-                                  if (result == true) {
-                                    Get.to(() => Order());
-                                  } else {
-                                    setState(() {
-                                      isLoading = false;
-                                    });
-                                    Fluttertoast.showToast(
-                                        msg: "Transaction Failed");
-                                  }
+                                  // if (result == true) {
+                                  //   Get.to(() => Order());
+                                  // } else {
+                                  //   setState(() {
+                                  //     isLoading = false;
+                                  //   });
+                                  //   Fluttertoast.showToast(
+                                  //       msg: "Transaction Failed");
+                                  // }
                                 },
                                 padding: EdgeInsets.all(0),
                                 shape: RoundedRectangleBorder(

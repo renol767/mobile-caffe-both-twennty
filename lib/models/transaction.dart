@@ -5,10 +5,10 @@ import 'food_model.dart';
 enum TransactionStatus { belumbayar, sudahdibayar, cancelled }
 
 class Transaction extends Equatable {
-  final int id;
+  final dynamic id;
   final Food food;
-  final int quantity;
-  final int total;
+  final dynamic quantity;
+  final dynamic total;
   final DateTime dateTime;
   final TransactionStatus status;
 
@@ -22,10 +22,10 @@ class Transaction extends Equatable {
   });
 
   Transaction copyWith({
-    int id,
+    dynamic id,
     Food food,
-    int quantity,
-    int total,
+    dynamic quantity,
+    dynamic total,
     DateTime dateTime,
     TransactionStatus status,
   }) {
@@ -37,6 +37,17 @@ class Transaction extends Equatable {
         dateTime: dateTime ?? this.dateTime,
         status: status ?? this.status);
   }
+
+  factory Transaction.fromJson(Map<String, dynamic> jsonData) => Transaction(
+      id: jsonData['id'],
+      food: Food.fromJson(jsonData['food']),
+      quantity: jsonData['quantity'],
+      total: jsonData['total'],
+      status: (jsonData['status'] == 'Belum Bayar')
+          ? TransactionStatus.belumbayar
+          : (jsonData['status'] == 'Sudah DiBayar')
+              ? TransactionStatus.sudahdibayar
+              : TransactionStatus.cancelled);
 
   @override
   List<Object> get props => [id, food, quantity, total, dateTime, status];
