@@ -40,7 +40,7 @@ class Transaction extends Equatable {
 
   factory Transaction.fromJson(Map<String, dynamic> jsonData) => Transaction(
       id: jsonData['id'],
-      food: Food.fromJson(jsonData['food']),
+      food: Food.fromJson(jsonData),
       quantity: jsonData['quantity'],
       total: jsonData['total'],
       status: (jsonData['status'] == 'Belum Bayar')
