@@ -1,4 +1,5 @@
 import 'package:caffe_both_twenty/cubit/food_cubit.dart';
+import 'package:caffe_both_twenty/cubit/news_cubit.dart';
 import 'package:caffe_both_twenty/cubit/transaction_cubit.dart';
 import 'package:caffe_both_twenty/page/page_dashboard/order.dart';
 import 'package:caffe_both_twenty/page/page_dashboard/menu.dart';
@@ -35,7 +36,8 @@ class _HomeState extends State<Home> {
     return MultiBlocProvider(
       providers: [
         BlocProvider(create: (_) => FoodCubit()),
-        BlocProvider(create: (_) => TransactionCubit())
+        BlocProvider(create: (_) => TransactionCubit()),
+        BlocProvider(create: (_) => NewsCubit())
       ],
       child: Scaffold(
         body: WillPopScope(

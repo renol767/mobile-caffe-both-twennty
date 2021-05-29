@@ -2,14 +2,18 @@ import 'dart:math';
 
 import 'package:caffe_both_twenty/cubit/cubit.dart';
 import 'package:caffe_both_twenty/cubit/transaction_cubit.dart';
+import 'package:caffe_both_twenty/models/fetchuser.dart';
 import 'package:caffe_both_twenty/models/food_model.dart';
 import 'package:caffe_both_twenty/models/transaction.dart';
 import 'package:caffe_both_twenty/page/page_dashboard/menu/payment_page.dart';
+import 'package:caffe_both_twenty/services/user_services.dart';
 import 'package:caffe_both_twenty/widgets/rating_stars.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:get_it/get_it.dart';
 
 class FoodDetailPage extends StatefulWidget {
   final Function onBackButtonPressed;
@@ -22,9 +26,17 @@ class FoodDetailPage extends StatefulWidget {
 }
 
 class _FoodDetailPageState extends State<FoodDetailPage> {
+  UserService get usersService => GetIt.I<UserService>();
+  FetchUser users;
+
   @override
   void initState() {
     super.initState();
+    usersService
+        .getFetchuser(FirebaseAuth.instance.currentUser.uid)
+        .then((value) {
+      users = value;
+    });
   }
 
   int quantity = 1;
@@ -107,13 +119,12 @@ class _FoodDetailPageState extends State<FoodDetailPage> {
                                     style: TextStyle(
                                         color: Color(0xfffd6f19),
                                         fontWeight: FontWeight.bold,
-                                        fontSize: 17),
+                                        fontSize: 20),
                                   ),
                                 ),
                                 SizedBox(
                                   height: 6,
                                 ),
-                                RatingStars(widget.transaction.food.rate)
                               ],
                             ),
                             Row(
@@ -221,7 +232,12 @@ class _FoodDetailPageState extends State<FoodDetailPage> {
                               child: RaisedButton(
                                 onPressed: () {
                                   Get.to(() => PaymentPage(
-                                          transaction: Transaction(
+                                      nama: users.firstName +
+                                          " " +
+                                          users.lastName,
+                                      alamat: users.address,
+                                      wa: users.numberwhatsapp,
+                                      transaction: Transaction(
                                         food: widget.transaction.food,
                                         quantity: quantity,
                                         total: quantity *

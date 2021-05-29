@@ -1,12 +1,14 @@
 import 'package:caffe_both_twenty/cubit/cubit.dart';
+import 'package:caffe_both_twenty/cubit/news_cubit.dart';
 import 'package:caffe_both_twenty/models/transaction.dart';
 import 'package:caffe_both_twenty/page/page_dashboard/menu/food_detail_page.dart';
+import 'package:caffe_both_twenty/page/page_dashboard/menu/news_detail.dart';
+import 'package:caffe_both_twenty/widgets/news_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 import 'package:caffe_both_twenty/models/food_model.dart';
 import 'package:caffe_both_twenty/widgets/custom_tabbar.dart';
-import 'package:caffe_both_twenty/widgets/food_card.dart';
 import 'package:caffe_both_twenty/widgets/food_list_item.dart';
 import 'package:caffe_both_twenty/widgets/rating_stars.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -22,6 +24,7 @@ class _MenuState extends State<Menu> {
     super.initState();
     context.bloc<TransactionCubit>().getTransactions();
     context.bloc<FoodCubit>().getFoods();
+    context.bloc<NewsCubit>().getNews();
     FoodState state = context.bloc<FoodCubit>().state;
   }
 
@@ -49,7 +52,7 @@ class _MenuState extends State<Menu> {
                         fontSize: 26,
                         fontWeight: FontWeight.bold,
                         color: Color(0xfffd6f19)),
-                  )
+                  ),
                 ],
               ),
             ],
@@ -59,27 +62,30 @@ class _MenuState extends State<Menu> {
         Container(
           height: 230,
           width: double.infinity,
-          child: BlocBuilder<FoodCubit, FoodState>(
-              builder: (_, state) => (state is FoodLoaded)
+          child: BlocBuilder<NewsCubit, NewsState>(
+              builder: (_, state) => (state is NewsLoaded)
                   ? ListView(
                       scrollDirection: Axis.horizontal,
                       children: [
                         Row(
-                          children: state.foods
+                          children: state.news
                               .map((e) => Padding(
                                     padding: EdgeInsets.only(
-                                        left: (e == state.foods.first) ? 16 : 0,
+                                        left: (e == state.news.first) ? 16 : 0,
                                         right: 16),
                                     child: GestureDetector(
                                         onTap: () {
-                                          Get.to(FoodDetailPage(
-                                            transaction: Transaction(food: e),
-                                            onBackButtonPressed: () {
-                                              Get.back();
-                                            },
+                                          Get.to(NewsDetailPage(
+                                            news: e,
                                           ));
+                                          // Get.to(FoodDetailPage(
+                                          //   transaction: Transaction(food: e),
+                                          //   onBackButtonPressed: () {
+                                          //     Get.back();
+                                          //   },
+                                          // ));
                                         },
-                                        child: FoodCard(e)),
+                                        child: NewsCard(e)),
                                   ))
                               .toList(),
                         )
@@ -97,7 +103,7 @@ class _MenuState extends State<Menu> {
           child: Column(
             children: [
               SizedBox(
-                height: 20,
+                height: 10,
               ),
               Container(
                 padding: EdgeInsets.all(16.0),

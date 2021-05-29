@@ -29,7 +29,9 @@ class FoodListItem extends StatelessWidget {
               Text(
                 food.name,
                 style: TextStyle(
-                    color: Color(0xfffd6f19), fontWeight: FontWeight.bold),
+                    color: Color(0xfffd6f19),
+                    fontWeight: FontWeight.bold,
+                    fontSize: 14),
                 maxLines: 1,
                 overflow: TextOverflow.clip,
               ),
@@ -45,7 +47,6 @@ class FoodListItem extends StatelessWidget {
             ],
           ),
         ),
-        RatingStars(food.rate)
       ],
     );
   }

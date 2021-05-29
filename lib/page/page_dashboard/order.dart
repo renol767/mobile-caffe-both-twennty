@@ -1,11 +1,17 @@
 import 'package:caffe_both_twenty/cubit/cubit.dart';
+import 'package:caffe_both_twenty/models/fetchuser.dart';
 import 'package:caffe_both_twenty/models/food_model.dart';
 import 'package:caffe_both_twenty/models/transaction.dart';
+import 'package:caffe_both_twenty/page/page_dashboard/order/order_detail_page.dart';
+import 'package:caffe_both_twenty/services/user_services.dart';
 import 'package:caffe_both_twenty/widgets/custom_tabbar.dart';
 import 'package:caffe_both_twenty/widgets/order_list_item.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:get/get.dart';
+import 'package:get_it/get_it.dart';
 
 class Order extends StatefulWidget {
   @override
@@ -13,11 +19,18 @@ class Order extends StatefulWidget {
 }
 
 class _OrderState extends State<Order> {
+  UserService get usersService => GetIt.I<UserService>();
+  FetchUser users;
   @override
   void initState() {
     super.initState();
     context.bloc<TransactionCubit>().getTransactions();
     context.bloc<FoodCubit>().getFoods();
+    usersService
+        .getFetchuser(FirebaseAuth.instance.currentUser.uid)
+        .then((value) {
+      users = value;
+    });
   }
 
   int selectedIndex = 0;
@@ -87,11 +100,22 @@ class _OrderState extends State<Order> {
                         return Column(
                             children: transaction
                                 .map((e) => Padding(
-                                    padding: const EdgeInsets.only(
-                                        left: 16, bottom: 16),
-                                    child: OrderListItem(
-                                        transaction: e,
-                                        itemWidth: listitemWidth)))
+                                      padding: const EdgeInsets.only(
+                                          left: 16, bottom: 16),
+                                      child: GestureDetector(
+                                          onTap: () {
+                                            Get.to(() => OrderDetailPage(
+                                                nama: users.firstName +
+                                                    " " +
+                                                    users.lastName,
+                                                alamat: users.address,
+                                                wa: users.numberwhatsapp,
+                                                transaction: e));
+                                          },
+                                          child: OrderListItem(
+                                              transaction: e,
+                                              itemWidth: listitemWidth)),
+                                    ))
                                 .toList());
                       })
                     ],
