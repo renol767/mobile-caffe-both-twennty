@@ -68,10 +68,10 @@ class _MenuState extends State<Menu> {
                       scrollDirection: Axis.horizontal,
                       children: [
                         Row(
-                          children: state.news
+                          children: state.news.reversed
                               .map((e) => Padding(
                                     padding: EdgeInsets.only(
-                                        left: (e == state.news.first) ? 16 : 0,
+                                        left: (e == state.news.last) ? 16 : 0,
                                         right: 16),
                                     child: GestureDetector(
                                         onTap: () {

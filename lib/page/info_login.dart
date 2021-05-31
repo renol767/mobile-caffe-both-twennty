@@ -461,6 +461,7 @@ class _InfoUserState extends State<InfoUser> {
     // TODO: implement initState
     super.initState();
     uid = FirebaseAuth.instance.currentUser.uid;
-    numberphone = FirebaseAuth.instance.currentUser.phoneNumber;
+    numberphone = FirebaseAuth.instance.currentUser.phoneNumber.substring(3);
+    _numberphoneController.text = numberphone;
   }
 }

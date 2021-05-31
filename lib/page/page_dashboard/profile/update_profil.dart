@@ -29,8 +29,8 @@ class _UpdateProfileState extends State<UpdateProfile> {
         _lastnameController.text = users.lastName;
         _emailController.text = users.email;
         _addressController.text = users.address;
-        _numberphoneController.text = users.numberphone;
-        _numberwhatsappController.text = users.numberwhatsapp;
+        _numberphoneController.text = users.numberphone.substring(3);
+        _numberwhatsappController.text = users.numberwhatsapp.substring(3);
       });
     }
     uid = FirebaseAuth.instance.currentUser.uid;
@@ -289,26 +289,30 @@ class _UpdateProfileState extends State<UpdateProfile> {
                         controller: _numberphoneController,
                         keyboardType: TextInputType.number,
                         decoration: InputDecoration(
-                          counterStyle: TextStyle(color: Color(0xffe92b05)),
-                          labelText: "Phone Number",
-                          labelStyle: TextStyle(
-                              fontSize: 14,
-                              color: Colors.grey.shade400,
-                              fontWeight: FontWeight.w600),
-                          enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10),
-                            borderSide: BorderSide(color: Colors.grey.shade300),
-                          ),
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10),
-                            borderSide: BorderSide(color: Color(0xffe92b05)),
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10),
-                            borderSide: BorderSide(color: Color(0xffe92b05)),
-                          ),
-                          floatingLabelBehavior: FloatingLabelBehavior.auto,
-                        ),
+                            counterStyle: TextStyle(color: Color(0xffe92b05)),
+                            labelText: "Phone Number",
+                            labelStyle: TextStyle(
+                                fontSize: 14,
+                                color: Colors.grey.shade400,
+                                fontWeight: FontWeight.w600),
+                            enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10),
+                              borderSide:
+                                  BorderSide(color: Colors.grey.shade300),
+                            ),
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10),
+                              borderSide: BorderSide(color: Color(0xffe92b05)),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10),
+                              borderSide: BorderSide(color: Color(0xffe92b05)),
+                            ),
+                            floatingLabelBehavior: FloatingLabelBehavior.auto,
+                            prefix: Padding(
+                              padding: EdgeInsets.all(4),
+                              child: Text("+62 "),
+                            )),
                       ),
                       SizedBox(
                         height: 16,
@@ -322,26 +326,30 @@ class _UpdateProfileState extends State<UpdateProfile> {
                         controller: _numberwhatsappController,
                         keyboardType: TextInputType.number,
                         decoration: InputDecoration(
-                          counterStyle: TextStyle(color: Color(0xffe92b05)),
-                          labelText: "Whatsapp Number",
-                          labelStyle: TextStyle(
-                              fontSize: 14,
-                              color: Colors.grey.shade400,
-                              fontWeight: FontWeight.w600),
-                          enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10),
-                            borderSide: BorderSide(color: Colors.grey.shade300),
-                          ),
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10),
-                            borderSide: BorderSide(color: Color(0xffe92b05)),
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10),
-                            borderSide: BorderSide(color: Color(0xffe92b05)),
-                          ),
-                          floatingLabelBehavior: FloatingLabelBehavior.auto,
-                        ),
+                            counterStyle: TextStyle(color: Color(0xffe92b05)),
+                            labelText: "Whatsapp Number",
+                            labelStyle: TextStyle(
+                                fontSize: 14,
+                                color: Colors.grey.shade400,
+                                fontWeight: FontWeight.w600),
+                            enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10),
+                              borderSide:
+                                  BorderSide(color: Colors.grey.shade300),
+                            ),
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10),
+                              borderSide: BorderSide(color: Color(0xffe92b05)),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10),
+                              borderSide: BorderSide(color: Color(0xffe92b05)),
+                            ),
+                            floatingLabelBehavior: FloatingLabelBehavior.auto,
+                            prefix: Padding(
+                              padding: EdgeInsets.all(4),
+                              child: Text("+62 "),
+                            )),
                       ),
                       SizedBox(
                         height: 30,
@@ -358,8 +366,8 @@ class _UpdateProfileState extends State<UpdateProfile> {
                                   _lastnameController.text,
                                   _emailController.text,
                                   _addressController.text,
-                                  _numberphoneController.text,
-                                  _numberwhatsappController.text,
+                                  '+62${_numberphoneController.text}',
+                                  '+62${_numberwhatsappController.text}',
                                   _token);
                               Navigator.push(
                                   context,
