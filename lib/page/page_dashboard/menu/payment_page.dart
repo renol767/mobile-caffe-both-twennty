@@ -44,7 +44,7 @@ class _PaymentPageState extends State<PaymentPage> {
       String status,
       String Token) async {
     final String apiURL =
-        "http://192.168.1.5/caffe-booth-twenty/api/transaction?Token=$_token";
+        "http://192.168.1.15/caffe-booth-twenty/api/transaction?Token=$_token";
     final response = await http.post(apiURL, body: {
       'id': id,
       'uid': uid,

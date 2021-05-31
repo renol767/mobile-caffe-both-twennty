@@ -6,6 +6,7 @@ import 'package:caffe_both_twenty/page/page_dashboard/menu/food_detail_page.dart
 import 'package:caffe_both_twenty/page/page_dashboard/menu/payment_page.dart';
 import 'package:caffe_both_twenty/services/user_services.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_it/get_it.dart';
@@ -27,9 +28,6 @@ void setupLocaator() {
 }
 
 class MyApp extends StatelessWidget {
-  @override
-  void initState() {}
-
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {

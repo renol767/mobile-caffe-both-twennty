@@ -1,4 +1,6 @@
 import 'dart:async';
+import 'package:firebase_messaging/firebase_messaging.dart';
+
 import 'homepage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -12,7 +14,19 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
+  FirebaseMessaging fm = FirebaseMessaging();
+  @override
   void initState() {
+    fm.getToken().then((value) => print("token : $value"));
+    fm.configure(onMessage: (message) async {
+      fm.requestNotificationPermissions(
+          const IosNotificationSettings(sound: true, badge: true, alert: true));
+      print(message);
+    }, onLaunch: (message) async {
+      print(message);
+    }, onResume: (message) async {
+      print(message);
+    });
     super.initState();
     Timer(
         Duration(seconds: 3),
