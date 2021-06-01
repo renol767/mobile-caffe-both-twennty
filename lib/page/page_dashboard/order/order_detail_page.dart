@@ -334,21 +334,22 @@ class _OrderDetailPageState extends State<OrderDetailPage> {
                                   ),
                                   RaisedButton(
                                     onPressed: () async {
-                                      // await updateTransaction(
-                                      //     widget.transaction.id,
-                                      //     uid,
-                                      //     widget.transaction.food.id,
-                                      //     widget.transaction.quantity,
-                                      //     widget.transaction.total,
-                                      //     EnumToString.convertToString(
-                                      //         TransactionStatus.complete,
-                                      //         camelCase: true),
-                                      //     _token);
                                       await createRating(
                                           widget.transaction.food.id,
                                           rating.toString(),
                                           _token);
-                                      Get.to(Home());
+                                      await updateTransaction(
+                                              widget.transaction.id,
+                                              uid,
+                                              widget.transaction.food.id,
+                                              widget.transaction.quantity,
+                                              widget.transaction.total,
+                                              EnumToString.convertToString(
+                                                  TransactionStatus.complete,
+                                                  camelCase: true),
+                                              _token)
+                                          .onError((error, stackTrace) =>
+                                              Get.to(Home()));
                                     },
                                     color: Color(0xfffd6f19),
                                     elevation: 0,
