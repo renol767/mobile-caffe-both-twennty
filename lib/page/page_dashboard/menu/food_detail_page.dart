@@ -119,12 +119,18 @@ class _FoodDetailPageState extends State<FoodDetailPage> {
                                     style: TextStyle(
                                         color: Color(0xfffd6f19),
                                         fontWeight: FontWeight.bold,
-                                        fontSize: 20),
+                                        fontSize: 17),
                                   ),
                                 ),
                                 SizedBox(
                                   height: 6,
                                 ),
+                                (widget.transaction.food.rate == 0)
+                                    ? Text("No Rating Avalibe",
+                                        style: TextStyle(
+                                            fontSize: 14,
+                                            color: Colors.grey.shade600))
+                                    : RatingStars(widget.transaction.food.rate)
                               ],
                             ),
                             Row(

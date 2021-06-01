@@ -48,6 +48,8 @@ dependencies:
   equatable: ^2.0.0
   flutter_bloc: ^6.0.1
   get: ^3.4.6
+  smooth_star_rating: ^1.1.1
+  enum_to_string: ^2.0.1
   
 
 dev_dependencies:

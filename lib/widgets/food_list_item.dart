@@ -47,6 +47,10 @@ class FoodListItem extends StatelessWidget {
             ],
           ),
         ),
+        (food.rate == 0)
+            ? Text("No Rating Avalibe",
+                style: TextStyle(fontSize: 12, color: Colors.grey.shade600))
+            : RatingStars(food.rate)
       ],
     );
   }

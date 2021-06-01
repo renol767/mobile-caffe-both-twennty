@@ -95,7 +95,7 @@ class _OrderState extends State<Order> {
                                     element.status ==
                                         TransactionStatus.sudahdibayar ||
                                     element.status ==
-                                        TransactionStatus.cancelled)
+                                        TransactionStatus.complete)
                                 .toList();
                         return Column(
                             children: transaction

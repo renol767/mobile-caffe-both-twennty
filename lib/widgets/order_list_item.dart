@@ -56,10 +56,10 @@ class OrderListItem extends StatelessWidget {
                 SizedBox(
                   height: 8,
                 ),
-                (transaction.status == TransactionStatus.cancelled)
+                (transaction.status == TransactionStatus.complete)
                     ? Text(
-                        'Cancelled',
-                        style: TextStyle(color: Colors.redAccent, fontSize: 13),
+                        'Complete',
+                        style: TextStyle(color: Colors.green, fontSize: 13),
                       )
                     : (transaction.status == TransactionStatus.sudahdibayar)
                         ? Text(

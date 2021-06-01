@@ -1,6 +1,15 @@
+import 'package:caffe_both_twenty/models/rating_model.dart';
+import 'package:caffe_both_twenty/models/sendtransaction.dart';
 import 'package:caffe_both_twenty/models/transaction.dart';
+import 'package:caffe_both_twenty/page/home.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:enum_to_string/enum_to_string.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+import 'package:smooth_star_rating/smooth_star_rating.dart';
 
 class OrderDetailPage extends StatefulWidget {
   final Transaction transaction;
@@ -12,6 +21,59 @@ class OrderDetailPage extends StatefulWidget {
 }
 
 class _OrderDetailPageState extends State<OrderDetailPage> {
+  String uid;
+
+  @override
+  void initState() {
+    super.initState();
+    uid = FirebaseAuth.instance.currentUser.uid;
+  }
+
+  Future<Rating> createRating(
+      String food_id, String rates, String token) async {
+    final String apiURL =
+        "http://192.168.1.15/caffe-booth-twenty/api/rating?Token=$_token";
+    final response = await http.post(apiURL,
+        body: {'food_id': food_id, 'rates': rates, 'Token': token});
+    if (response.statusCode == 200) {
+      var responseString = json.decode(response.body);
+
+      return Rating.fromJson(responseString);
+    } else {
+      return null;
+    }
+  }
+
+  final _token = "0a66838fcbd880483b9af2c91c6cef9e";
+  Future<SendTransaction> updateTransaction(
+      String id,
+      String uid,
+      String foodId,
+      String quantity,
+      String total,
+      String status,
+      String Token) async {
+    final String apiURL =
+        "http://192.168.1.15/caffe-booth-twenty/api/transaction?Token=$_token&uid=$uid";
+    final response = await http.put(apiURL, body: {
+      'id': id,
+      'uid': uid,
+      'food_id': foodId,
+      'quantity': quantity,
+      'total': total,
+      'status': status,
+      "Token": Token
+    });
+    if (response.statusCode == 200) {
+      var responseString = json.decode(response.body);
+
+      return SendTransaction.fromJson(responseString);
+    } else {
+      return null;
+    }
+  }
+
+  double rating;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -216,6 +278,30 @@ class _OrderDetailPageState extends State<OrderDetailPage> {
                               )
                             ],
                           ),
+                          SizedBox(
+                            height: 6,
+                          ),
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                'DateTime',
+                                style: TextStyle(
+                                  fontSize: 15,
+                                  color: Colors.grey.shade700,
+                                ),
+                              ),
+                              Text(
+                                widget.transaction.dateTime.toString(),
+                                style: TextStyle(
+                                    fontSize: 15,
+                                    color: Colors.grey.shade700,
+                                    fontWeight: FontWeight.w600),
+                                textAlign: TextAlign.right,
+                              )
+                            ],
+                          ),
                         ],
                       ),
                     ),
@@ -224,6 +310,62 @@ class _OrderDetailPageState extends State<OrderDetailPage> {
                     ),
                     Column(
                       children: [
+                        (widget.transaction.status ==
+                                TransactionStatus.sudahdibayar)
+                            ? Center(
+                                child: Column(
+                                children: [
+                                  SmoothStarRating(
+                                    allowHalfRating: false,
+                                    color: Color(0xfffd6f19),
+                                    borderColor: Color(0xfffd6f19),
+                                    starCount: 5,
+                                    onRated: (value) {
+                                      setState(() {
+                                        rating = value;
+                                      });
+                                    },
+                                  ),
+                                  (rating == null)
+                                      ? Text("0")
+                                      : Text(rating.toString()),
+                                  SizedBox(
+                                    height: 10,
+                                  ),
+                                  RaisedButton(
+                                    onPressed: () async {
+                                      // await updateTransaction(
+                                      //     widget.transaction.id,
+                                      //     uid,
+                                      //     widget.transaction.food.id,
+                                      //     widget.transaction.quantity,
+                                      //     widget.transaction.total,
+                                      //     EnumToString.convertToString(
+                                      //         TransactionStatus.complete,
+                                      //         camelCase: true),
+                                      //     _token);
+                                      await createRating(
+                                          widget.transaction.food.id,
+                                          rating.toString(),
+                                          _token);
+                                      Get.to(Home());
+                                    },
+                                    color: Color(0xfffd6f19),
+                                    elevation: 0,
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(8)),
+                                    child: Text(
+                                      'Rate Us',
+                                      style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 17,
+                                          fontWeight: FontWeight.w500),
+                                    ),
+                                  )
+                                ],
+                              ))
+                            : Text(''),
+                        SizedBox(height: 20),
                         Text("Status",
                             style: TextStyle(
                                 fontSize: 20, fontWeight: FontWeight.bold)),
@@ -231,11 +373,11 @@ class _OrderDetailPageState extends State<OrderDetailPage> {
                           height: 30,
                         ),
                         (widget.transaction.status ==
-                                TransactionStatus.cancelled)
+                                TransactionStatus.complete)
                             ? Text(
-                                'Cancelled',
+                                'Complete',
                                 style: TextStyle(
-                                    color: Colors.redAccent, fontSize: 20),
+                                    color: Colors.green, fontSize: 20),
                               )
                             : (widget.transaction.status ==
                                     TransactionStatus.sudahdibayar)
