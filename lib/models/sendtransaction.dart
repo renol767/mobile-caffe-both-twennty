@@ -4,13 +4,12 @@
 
 import 'dart:convert';
 
-List<List<SendTransaction>> sendTransactionFromJson(String str) =>
-    List<List<SendTransaction>>.from(json.decode(str).map((x) =>
-        List<SendTransaction>.from(x.map((x) => SendTransaction.fromJson(x)))));
+List<SendTransaction> sendTransactionFromJson(String str) =>
+    List<SendTransaction>.from(
+        json.decode(str).map((x) => SendTransaction.fromJson(x)));
 
-String sendTransactionToJson(List<List<SendTransaction>> data) =>
-    json.encode(List<dynamic>.from(
-        data.map((x) => List<dynamic>.from(x.map((x) => x.toJson())))));
+String sendTransactionToJson(List<SendTransaction> data) =>
+    json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
 class SendTransaction {
   SendTransaction(
@@ -20,7 +19,7 @@ class SendTransaction {
       this.quantity,
       this.total,
       this.status,
-      this.Token});
+      this.datetime});
 
   String id;
   String uid;
@@ -28,7 +27,7 @@ class SendTransaction {
   String quantity;
   String total;
   String status;
-  String Token;
+  String datetime;
 
   factory SendTransaction.fromJson(Map<String, dynamic> json) =>
       SendTransaction(
@@ -38,7 +37,7 @@ class SendTransaction {
           quantity: json["quantity"],
           total: json["total"],
           status: json["status"],
-          Token: json["Token"]);
+          datetime: json["datetime"]);
 
   Map<String, dynamic> toJson() => {
         "id": id,
@@ -47,6 +46,6 @@ class SendTransaction {
         "quantity": quantity,
         "total": total,
         "status": status,
-        "Token": Token,
+        "datetime": datetime
       };
 }

@@ -1,6 +1,5 @@
 import 'package:caffe_both_twenty/models/food_model.dart';
 import 'package:caffe_both_twenty/models/transaction.dart';
-import 'package:caffe_both_twenty/widgets/rating_stars.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -20,7 +19,9 @@ class OrderListItem extends StatelessWidget {
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(8),
               image: DecorationImage(
-                  image: NetworkImage(transaction.food.picturePath),
+                  image: NetworkImage(
+                      "http://192.168.1.9/caffe-booth-twenty/gambar/" +
+                          transaction.food.picturePath),
                   fit: BoxFit.cover)),
         ),
         SizedBox(

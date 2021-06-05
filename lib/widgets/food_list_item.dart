@@ -19,7 +19,10 @@ class FoodListItem extends StatelessWidget {
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(8),
               image: DecorationImage(
-                  image: NetworkImage(food.picturePath), fit: BoxFit.cover)),
+                  image: NetworkImage(
+                      "http://192.168.1.9/caffe-booth-twenty/gambar/" +
+                          food.picturePath),
+                  fit: BoxFit.cover)),
         ),
         SizedBox(
           width: itemWidth - 182,

@@ -68,7 +68,7 @@ class About extends StatelessWidget {
                     Column(
                       children: [
                         Text(
-                            "Caffe Both Twenty adalah sebuah caffe dan resto yang terletak di daerah lohbener Indramayu")
+                            "Caffe Both Twenty adalah sebuah caffe dan resto yang terletak di daerah lohbener Indramayu. Caffe ini menyediakan berbagai makanan minuman yang pastinya enak dan murah karena caffe ini dibangun untuk para mahasiswa yang ingin nongkrong atau mengerjakan tugas sambil menikmati hidangan minuman dari caffe kami.")
                       ],
                     )
                   ],

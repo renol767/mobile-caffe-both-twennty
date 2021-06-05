@@ -77,8 +77,8 @@ class _ContactMeState extends State<ContactMe> {
                 textColor: Color(0xfffd6f19),
                 color: Colors.grey.shade200,
                 onPressed: () {
-                  _launchURL("https://wa.me/+6285156816197?text=Hallo",
-                      "Error Open Whatsapp");
+                  _launchURL(
+                      "https://wa.me/+6285759174996", "Error Open Whatsapp");
                 },
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.start,
@@ -107,7 +107,7 @@ class _ContactMeState extends State<ContactMe> {
                 height: 50.0,
                 color: Colors.grey.shade200,
                 onPressed: () {
-                  _launchURL("https://instagram.com/renolakatsuki",
+                  _launchURL("https://www.instagram.com/boothtwenty",
                       "Error Open Instagram");
                 },
                 child: Row(

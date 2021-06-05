@@ -149,7 +149,7 @@ class _HowToOrderState extends State<HowToOrder> {
                     child: Column(
                       children: [
                         Image.asset(
-                          'images/timetile_qr.png',
+                          'images/timetile_checkout.png',
                           width: 50,
                           height: 50,
                         ),
@@ -157,7 +157,7 @@ class _HowToOrderState extends State<HowToOrder> {
                           height: 5,
                         ),
                         Text(
-                          "Scan QR",
+                          "Checkout",
                           style: TextStyle(
                               fontWeight: FontWeight.bold,
                               fontSize: 15,
@@ -167,7 +167,7 @@ class _HowToOrderState extends State<HowToOrder> {
                           height: 5,
                         ),
                         Text(
-                          "Scan QR Code yang ada di meja untuk mendapatkan nota",
+                          "Checkout Pesanan, pastikan pesanan sudah sesuai",
                           style: TextStyle(
                               fontSize: 12, color: Colors.grey.shade400),
                         )
