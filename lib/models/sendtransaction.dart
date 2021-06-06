@@ -31,7 +31,7 @@ class SendTransaction {
 
   factory SendTransaction.fromJson(Map<String, dynamic> json) =>
       SendTransaction(
-          id: json["id"],
+          id: json["tr_id"],
           uid: json["uid"],
           foodId: json["food_id"],
           quantity: json["quantity"],
@@ -40,7 +40,7 @@ class SendTransaction {
           datetime: json["datetime"]);
 
   Map<String, dynamic> toJson() => {
-        "id": id,
+        "tr_id": id,
         "uid": uid,
         "food_id": foodId,
         "quantity": quantity,

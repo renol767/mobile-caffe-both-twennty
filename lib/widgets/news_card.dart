@@ -30,7 +30,10 @@ class NewsCard extends StatelessWidget {
                       topLeft: Radius.circular(8),
                       topRight: Radius.circular(8)),
                   image: DecorationImage(
-                      image: NetworkImage(news.picture), fit: BoxFit.cover)),
+                      image: NetworkImage(
+                          "http://192.168.1.10/caffe-booth-twenty/gambar/" +
+                              news.picture),
+                      fit: BoxFit.cover)),
             ),
             Container(
               margin: EdgeInsets.only(top: 15, right: 50),

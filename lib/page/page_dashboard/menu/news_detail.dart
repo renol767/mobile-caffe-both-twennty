@@ -48,7 +48,9 @@ class _NewsDetailPageState extends State<NewsDetailPage> {
                       width: double.infinity,
                       decoration: BoxDecoration(
                           image: DecorationImage(
-                              image: NetworkImage(widget.news.picture),
+                              image: NetworkImage(
+                                  "http://192.168.1.10/caffe-booth-twenty/gambar/" +
+                                      widget.news.picture),
                               fit: BoxFit.contain)))),
               SizedBox(
                 height: 20,
