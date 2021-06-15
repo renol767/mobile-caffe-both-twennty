@@ -8,7 +8,7 @@ class FoodServices {
     final token = "0a66838fcbd880483b9af2c91c6cef9e";
     return http
         .get(
-            "http://192.168.1.10/caffe-booth-twenty/api/food?Token=0a66838fcbd880483b9af2c91c6cef9e")
+            "http://192.168.1.6/caffe-booth-twenty/api/food?Token=0a66838fcbd880483b9af2c91c6cef9e")
         .then((data) {
       if (data.statusCode == 200) {
         final jsonData = json.decode(data.body);

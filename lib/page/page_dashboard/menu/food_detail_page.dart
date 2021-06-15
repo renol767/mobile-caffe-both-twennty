@@ -59,7 +59,7 @@ class _FoodDetailPageState extends State<FoodDetailPage> {
                   decoration: BoxDecoration(
                       image: DecorationImage(
                           image: NetworkImage(
-                              "http://192.168.1.10/caffe-booth-twenty/gambar/" +
+                              "http://192.168.1.6/caffe-booth-twenty/gambar/" +
                                   widget.transaction.food.picturePath),
                           fit: BoxFit.cover)))),
           SafeArea(

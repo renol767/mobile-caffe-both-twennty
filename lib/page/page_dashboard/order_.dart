@@ -32,7 +32,7 @@ class _OrderDetailPageState extends State<OrderDetailPage> {
   Future<Rating> createRating(
       String food_id, String rates, String token) async {
     final String apiURL =
-        "http://192.168.1.10/caffe-booth-twenty/api/rating?Token=$_token";
+        "http://192.168.1.6/caffe-booth-twenty/api/rating?Token=$_token";
     final response = await http.post(apiURL,
         body: {'food_id': food_id, 'rates': rates, 'Token': token});
     if (response.statusCode == 200) {
@@ -54,7 +54,7 @@ class _OrderDetailPageState extends State<OrderDetailPage> {
       String status,
       String Token) async {
     final String apiURL =
-        "http://192.168.1.10/caffe-booth-twenty/api/transaction?Token=$_token&uid=$uid";
+        "http://192.168.1.6/caffe-booth-twenty/api/transaction?Token=$_token&uid=$uid";
     final response = await http.put(apiURL, body: {
       'tr_id': id,
       'uid': uid,
@@ -139,7 +139,7 @@ class _OrderDetailPageState extends State<OrderDetailPage> {
                                   borderRadius: BorderRadius.circular(8),
                                   image: DecorationImage(
                                       image: NetworkImage(
-                                          "http://192.168.1.10/caffe-booth-twenty/gambar/" +
+                                          "http://192.168.1.6/caffe-booth-twenty/gambar/" +
                                               widget.transaction.food
                                                   .picturePath),
                                       fit: BoxFit.cover)),

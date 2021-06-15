@@ -20,7 +20,7 @@ class FoodListItem extends StatelessWidget {
               borderRadius: BorderRadius.circular(8),
               image: DecorationImage(
                   image: NetworkImage(
-                      "http://192.168.1.10/caffe-booth-twenty/gambar/" +
+                      "http://192.168.1.6/caffe-booth-twenty/gambar/" +
                           food.picturePath),
                   fit: BoxFit.cover)),
         ),

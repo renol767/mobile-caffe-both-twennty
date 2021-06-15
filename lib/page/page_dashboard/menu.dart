@@ -58,7 +58,7 @@ class _MenuState extends State<Menu> {
             ],
           ),
         ),
-        //// List Food Kesamping
+        //// List News Kesamping
         Container(
           height: 230,
           width: double.infinity,
@@ -78,12 +78,6 @@ class _MenuState extends State<Menu> {
                                           Get.to(NewsDetailPage(
                                             news: e,
                                           ));
-                                          // Get.to(FoodDetailPage(
-                                          //   transaction: Transaction(food: e),
-                                          //   onBackButtonPressed: () {
-                                          //     Get.back();
-                                          //   },
-                                          // ));
                                         },
                                         child: NewsCard(e)),
                                   ))
@@ -96,7 +90,7 @@ class _MenuState extends State<Menu> {
                       size: 30,
                     )),
         ),
-        //// List Food By TABS
+        //// List Food
         Container(
           width: double.infinity,
           color: Colors.white,
@@ -123,14 +117,6 @@ class _MenuState extends State<Menu> {
               SizedBox(height: 10),
               BlocBuilder<FoodCubit, FoodState>(builder: (_, state) {
                 if (state is FoodLoaded) {
-                  // List<Food> foods = state.foods
-                  //     .where((element) =>
-                  //         element.types.contains((selectedIndex == 0)
-                  //             ? FoodType.new_food
-                  //             : (selectedIndex == 1)
-                  //                 ? FoodType.popular
-                  //                 : FoodType.recommended))
-                  //     .toList();
                   return Column(
                     children: state.foods
                         .map((e) => Padding(

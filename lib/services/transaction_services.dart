@@ -10,7 +10,7 @@ class TransactionServices {
     String uid = FirebaseAuth.instance.currentUser.uid;
     return http
         .get(
-            "http://192.168.1.10/caffe-booth-twenty/api/transaction?Token=0a66838fcbd880483b9af2c91c6cef9e&uid=$uid")
+            "http://192.168.1.6/caffe-booth-twenty/api/transaction?Token=0a66838fcbd880483b9af2c91c6cef9e&uid=$uid")
         .then((data) {
       if (data.statusCode == 200) {
         final jsonData = json.decode(data.body);
@@ -25,7 +25,7 @@ class TransactionServices {
   //     Transaction transaction) async {
   //   String uid = FirebaseAuth.instance.currentUser.uid;
   //   var response = await http.post(
-  //       "http://192.168.1.10/caffe-booth-twenty/api/transaction?Token=0a66838fcbd880483b9af2c91c6cef9e",
+  //       "http://192.168.1.6/caffe-booth-twenty/api/transaction?Token=0a66838fcbd880483b9af2c91c6cef9e",
   //       body: jsonEncode(<String, dynamic>{
   //         'uid': uid,
   //         'food_id': transaction.food.id,
