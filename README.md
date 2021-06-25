@@ -3,9 +3,9 @@
 Aplikasi Broadcast Promotion Caffe Both Twenty Berbasis Mobile
 
 ## Getting Started
-- Renol Nindi Kara N
-- Afifah Retno Sari
-- Idang Hospita
+- Renol N
+- Afifah R
+- Idang H
 
 ### Screenshot App
 
@@ -46,3 +46,21 @@ Aplikasi Broadcast Promotion Caffe Both Twenty Berbasis Mobile
 </td>
 </tr></table></div>
 
+<div style="text-align: center"><table><tr>
+<td style="text-align: center">
+<img src="screenshot/9.png" width="200"/>
+  </a>
+</td>
+<td style="text-align: center">
+<img src="screenshot/10.png" width="200"/>
+  </a>
+</td>
+<td style="text-align: center">
+<img src="screenshot/11.png" width="200"/>
+  </a>
+</td>
+<td style="text-align: center">
+<img src="screenshot/12.png" width="200"/>
+  </a>
+</td>
+</tr></table></div>
