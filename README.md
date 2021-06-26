@@ -64,3 +64,14 @@ Aplikasi Broadcast Promotion Caffe Both Twenty Berbasis Mobile
   </a>
 </td>
 </tr></table></div>
+
+<div style="text-align: center"><table><tr>
+<td style="text-align: center">
+<img src="screenshot/13.png" width="200"/>
+  </a>
+</td>
+<td style="text-align: center">
+<img src="screenshot/14.png" width="200"/>
+  </a>
+</td>
+</tr></table></div>
